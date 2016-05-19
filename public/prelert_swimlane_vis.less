@@ -1,0 +1,98 @@
+.prl-swimlane-vis {
+  width: 100%;
+  display: block;
+  padding: 15px 0px 10px 8px;
+  color: #555;
+  font-size: 10pt;
+  overflow-x: hidden;
+
+  select {
+    width: 175px;
+    font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    font-style: normal;
+    display: inline-block;
+    padding-right: 5px;
+    padding-left: 5px;
+  }
+  
+  .flot-y-axis {
+
+    .flot-tick-label {
+      padding-right: 7px;
+      font-size: 12px;
+      font-weight: bold;
+      max-width: 180px;
+      white-space: nowrap;
+      overflow-x: hidden;
+      z-index: 1;
+    }
+  }
+  
+  .prl-swimlane-vis-point-over {
+    cursor: pointer !important;
+  }
+}
+
+.prl-swimlane-vis-options {
+  div.threshold-input-container {
+    display: block; 
+    padding-bottom: 7px;
+     
+    .fa-circle {
+      display:inline; 
+      font-size:16px;
+    }
+    
+    .icon-severity-critical {
+      color: #fe5050;
+    }
+
+    .icon-severity-major {
+      color: #fba740;
+    }
+
+    .icon-severity-minor {
+      color: #fbfb49;
+    }
+
+    .icon-severity-warning {
+      color: #8bc8fb;
+    }
+    
+    .icon-severity-low {
+      color: #d2e9f7;
+    }
+
+    .icon-severity-unknown {
+      color: #e6e6e6;
+    }
+    
+    input[type="number"] {
+      display:inline;
+      width: 110px;
+      font-size: 12px;
+    } 
+  }
+}
+
+.prl-swimlane-vis-tooltip {
+  position: absolute;
+  display: none;
+  border: 2px solid #303030;
+  border-radius: 5px;
+  padding: 7px 5px;
+  color: #ffffff;
+  background-color: #303030;
+  font-family: Roboto, Droid, Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-size: 12px;
+    
+  hr {
+    margin-top: 3px;
+    margin-bottom: 3px;
+    border-color: #95a5a6;
+  }
+}
+
+
+
