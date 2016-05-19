@@ -18,11 +18,6 @@
  ****************************************************************************
  */
 
-/*
- * Swimlane visualization, displaying the behavior of a metric over time across
- * different values of fields in Prelert results.
- */
-
 define(function(require) {
 
   require('plugins/prelert_swimlane_vis/prelert_swimlane_vis_controller.js');
