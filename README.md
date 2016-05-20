@@ -30,7 +30,7 @@ bin/kibana plugin -i prelert_swimlane_vis -u https://github.com/prelert/kibana-s
 ## Options
 
 The options tab allows you to configure the color band thresholds and the format of the value shown
-in the tooltip when hovering over a marker in the swimlane.
+in the tooltip when hovering over a band in the swimlane.
 
 ![image](resources/options.png)
 
@@ -48,8 +48,17 @@ set for a 0 to 100 range of values, with the ranges set to:
 | 50 <= value < 75 | orange        |
 | 75 <= value      | red           |
 
+To alter the numeric ranges for any of the bands, use the *Band thresholds* section of the Options tab to
+enter the desired value, noting that the values entered define the *lower* threshold for each band. For example,
+in the screenshot above, the thresholds have been adjusted to suit the range of response times from the flight
+comparison website data, with values of 3000 or more displayed in red.
 
 ### Tooltip formatting
+
+By default, the value shown in the tooltip when hovering over a band in the swimlane is shown to one decimal
+place. To alter the format of the tooltip to suit values in your data set, enter the desired format in the
+*Tooltip formatting* section of the Options tab. Refer to the [Numeral.js](http://numeraljs.com/) documentation
+for the range of accepted formats, with that being the library used to format the value in the tooltip.
 
 
 ## Issues
