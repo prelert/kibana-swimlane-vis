@@ -29,7 +29,28 @@ bin/kibana plugin -i prelert_swimlane_vis -u https://github.com/prelert/kibana-s
 
 ## Options
 
+The options tab allows you to configure the color band thresholds and the format of the value shown
+in the tooltip when hovering over a marker in the swimlane.
+
 ![image](resources/options.png)
+
+### Color band thresholds
+
+The swimlane uses five different colors to indicate the value of the metric over a time interval, from
+light blue for the smallest values, through to red for the largest values. By default, the thresholds are
+set for a 0 to 100 range of values, with the ranges set to:
+
+| Range            | Color         |
+| -----------------|---------------|
+| 0 <= value < 3   | light blue    |
+| 3 <= value < 25  | blue          |
+| 25 <= value < 50 | yellow        |
+| 50 <= value < 75 | orange        |
+| 75 <= value      | red           |
+
+
+### Tooltip formatting
+
 
 ## Issues
 Please file issues [here](https://github.com/prelert/kibana-swimlane-vis/issues).
