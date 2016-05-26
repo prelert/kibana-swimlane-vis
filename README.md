@@ -23,18 +23,17 @@ This plugin has been tested with Kibana versions 4.3, 4.4 and 4.5.
 
 ### Automatic
 
+Windows:
 
 ```
 bin/kibana plugin -i prelert_swimlane_vis -u https://github.com/prelert/kibana-swimlane-vis/archive/v0.1.0.zip
 ```
 
-on Windows or:
+Linux or OS X:
 
 ```
 bin/kibana plugin -i prelert_swimlane_vis -u https://github.com/prelert/kibana-swimlane-vis/archive/v0.1.0.tar.gz
 ```
-
-for Linux or OS X.
 
 ## Usage
 
