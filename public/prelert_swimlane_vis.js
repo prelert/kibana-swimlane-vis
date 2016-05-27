@@ -39,7 +39,8 @@ define(function(require) {
                     'over time across a field from the results.' +
                     'Each lane displays a different value of the field, with the ' +
                     'relative size of the metric over each interval indicated ' +
-                    'by the color of the symbol at that time.',
+                    'by the color of the symbol at that time. ' +
+                    'Created by Prelert Behavioral Analytics www.prelert.com',
       template : require('plugins/prelert_swimlane_vis/prelert_swimlane_vis.html'),
       params : {
         editor : require('plugins/prelert_swimlane_vis/prelert_swimlane_vis_params.html'),
