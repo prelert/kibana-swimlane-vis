@@ -104,5 +104,10 @@ for the range of accepted formats, with that being the library used to format th
 Please file issues [here](https://github.com/prelert/kibana-swimlane-vis/issues).
 
 
+## About Us
 
+Prelert is the leading provider of behavioral analytics for IT security, IT operations, and business operations teams. Our solution analyzes log data, finds anomalies, links them together and lets the data tell the story behind advanced security threats, IT performance problems, and business disruptions.
 
+Leveraging machine learning anomaly detection and other behavioral analytics capabilities, the solution automates the analysis of massive data sets, eliminating manual effort and human error. Hundreds of progressive IT organizations rely on Prelert to detect advanced threat activity, reduce false positive alerts and enable faster root cause analysis. Prelert lets your data tell the story.
+
+www.prelert.com
