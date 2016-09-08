@@ -59,7 +59,6 @@ module.controller('PrelertSwimlaneVisController', function($scope, courier) {
   });
 
   $scope.processAggregations = function(aggregations) {
-
     var dataByViewBy = {};
 
     if (aggregations && 
@@ -217,7 +216,7 @@ module.controller('PrelertSwimlaneVisController', function($scope, courier) {
         renderSwimlane();
       }
     });
-
+    
     function renderSwimlane() {
 
       var chartData = scope.metricsData || [];
@@ -274,7 +273,8 @@ module.controller('PrelertSwimlaneVisController', function($scope, courier) {
         // so set the x-axis min to the start of the aggregation interval.
         earliest = moment(bounds.min).startOf(aggInterval.description).valueOf();
         latest = moment(bounds.max).valueOf();
-      }          
+      }       
+      
 
       var options = {
           xaxis: {
@@ -316,6 +316,9 @@ module.controller('PrelertSwimlaneVisController', function($scope, courier) {
           }
       };
 
+      // Set the alternate lane marking color depending on whether Kibana dark theme is being used.
+      var alternateLaneColor = element.closest('.theme-dark').length === 0 ? '#f5f5f5' : "#4a4a4a";
+      
       options.yaxis.max = laneIds.length;
       options.yaxis.ticks = [];
       options.grid.markings = [];
@@ -342,7 +345,7 @@ module.controller('PrelertSwimlaneVisController', function($scope, courier) {
           yaxisMarking = {};
           yaxisMarking.from = i+0.03;
           yaxisMarking.to = i+1;
-          var marking = {yaxis: yaxisMarking, color: "#f5f5f5"};
+          var marking = {yaxis: yaxisMarking, color: alternateLaneColor};
           options.grid.markings.push(marking); 
         }
       });
