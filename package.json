@@ -1,6 +1,6 @@
 {
   "name": "prelert_swimlane_vis",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Prelert swimlane visualization plugin",
   "license": "Apache-2.0"
 }
