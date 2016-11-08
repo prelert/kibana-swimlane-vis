@@ -36,7 +36,7 @@ define(function(require) {
       title : 'Swimlane',
       icon : 'fa-bars',
       description : 'Swimlane visualization displaying the behavior of a metric ' +
-                    'over time across a field from the results.' +
+                    'over time across a field from the results. ' +
                     'Each lane displays a different value of the field, with the ' +
                     'relative size of the metric over each interval indicated ' +
                     'by the color of the symbol at that time. ' +
