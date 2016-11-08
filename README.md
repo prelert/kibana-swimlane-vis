@@ -17,7 +17,7 @@ response times:
 
 ## Compatibility
 
-This plugin has been tested with Kibana versions 4.3, 4.4 and 4.5.
+This plugin has been tested with Kibana versions 4.3, 4.4, 4.5 and 4.6.
 
 ## Installation
 
@@ -39,25 +39,25 @@ bin/kibana plugin -i prelert_swimlane_vis -u https://github.com/prelert/kibana-s
 
 The first step in creating the visualization is to configure the metric that will be displayed.
 Select the Elasticsearch aggregation to be used - count, average, sum, min and max are currently available.
-If using average, sum, min or max, select the numeric field that will be aggregated. From Kibana 4.5, a 
+If using average, sum, min or max, select the numeric field that will be aggregated. From Kibana 4.5, a
 custom label can also be entered if desired, which will be displayed against the value in tooltips. In our
 example we are plotting maximum response time, with the numeric value stored in the `actual` field of the results:
 
 ![image](resources/step1.png)
 
 The next step is to configure the field by which you want the results to be split to form the swimlanes using
-an Elasticsearch terms aggregation. Select the field for the *View by* bucket aggregation, which will typically be 
-one of the *string* type fields in your results. Use the *Size* dropdown to select the maximum number of swimlanes 
+an Elasticsearch terms aggregation. Select the field for the *View by* bucket aggregation, which will typically be
+one of the *string* type fields in your results. Use the *Size* dropdown to select the maximum number of swimlanes
 that will be displayed. In our example, we will be viewing results by `airline`, showing the top 15 airlines by
 maximum response time:
 
 ![image](resources/step2.png)
 
-Note if no *View by* buckets are configured, a single swimlane will be displayed showing the behavior of the 
+Note if no *View by* buckets are configured, a single swimlane will be displayed showing the behavior of the
 selected metric over all results.
 
 The final step is to select the time field in your results. The time frame for the intervals in the swimlane
-visualization can be specified in terms of seconds, minutes, hours, days, weeks, months, or years, or just 
+visualization can be specified in terms of seconds, minutes, hours, days, weeks, months, or years, or just
 leave it to the *Auto* setting of Kibana which will aim to pick the optimum interval depending on the time
 span of the query. An *interval* dropdown control is also available at the top of the swimlane for use when
 the visualization has been saved and added to a dashboard.
