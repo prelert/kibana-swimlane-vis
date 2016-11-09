@@ -40,16 +40,8 @@ bin/kibana plugin -i prelert_swimlane_vis -u https://github.com/prelert/kibana-s
 
 ### Kibana 5.0.0:
 
-Linux or OS X:
-
 ```
-bin/kibana plugin install https://github.com/prelert/kibana-swimlane-vis/archive/v5.0.0.tar.gz
-```
-
-Windows:
-
-```
-bin/kibana-plugin install https://github.com/prelert/kibana-swimlane-vis/archive/v5.0.0.zip
+bin/kibana-plugin install https://github.com/prelert/kibana-swimlane-vis/releases/download/v5.0.0/prelert_swimlane_vis-5.0.0.zip
 ```
 
 ## Uninstall
