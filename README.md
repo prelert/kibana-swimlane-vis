@@ -43,7 +43,7 @@ bin/kibana plugin -i prelert_swimlane_vis -u https://github.com/prelert/kibana-s
 Linux or OS X:
 
 ```
-bin/kibana plugin -install https://github.com/prelert/kibana-swimlane-vis/archive/v5.0.0.tar.gz
+bin/kibana plugin install https://github.com/prelert/kibana-swimlane-vis/archive/v5.0.0.tar.gz
 ```
 
 Windows:
