@@ -1,6 +1,6 @@
 # Swimlane visualization for Kibana
 
-A swimlane visualization for Kibana 4.
+A swimlane visualization for Kibana, with builds available for both Kibana 4 and Kibana 5.
 
 The visualization displays the behavior of a metric value over time across a field from the results.
 Each lane displays a different value of the selected field, with the relative size of the metric
@@ -17,22 +17,47 @@ response times:
 
 ## Compatibility
 
-This plugin has been tested with Kibana versions 4.3, 4.4, 4.5 and 4.6.
+Different releases of the plugin are available to work with either Kibana 4 or Kibana 5.
+
+The distribution for Kibana 4 has been tested with Kibana versions 4.3, 4.4, 4.5 and 4.6, and the Kibana 5
+build with version 5.0.0.
 
 ## Installation
 
-### Automatic
-
-Windows:
-
-```
-bin/kibana plugin -i prelert_swimlane_vis -u https://github.com/prelert/kibana-swimlane-vis/archive/v0.1.1.zip
-```
+### Kibana 4.x:
 
 Linux or OS X:
 
 ```
-bin/kibana plugin -i prelert_swimlane_vis -u https://github.com/prelert/kibana-swimlane-vis/archive/v0.1.1.tar.gz
+bin/kibana plugin -i prelert_swimlane_vis -u https://github.com/prelert/kibana-swimlane-vis/archive/v0.1.0.tar.gz
+```
+
+Windows:
+
+```
+bin/kibana plugin -i prelert_swimlane_vis -u https://github.com/prelert/kibana-swimlane-vis/archive/v0.1.0.zip
+```
+
+### Kibana 5.0.0:
+
+Linux or OS X:
+
+```
+bin/kibana plugin -install https://github.com/prelert/kibana-swimlane-vis/archive/v5.0.0.tar.gz
+```
+
+Windows:
+
+```
+bin/kibana-plugin install https://github.com/prelert/kibana-swimlane-vis/archive/v5.0.0.zip
+```
+
+## Uninstall
+
+### Kibana 5.x:
+
+```
+bin/kibana-plugin remove prelert_swimlane_vis
 ```
 
 ## Usage
