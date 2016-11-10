@@ -37,7 +37,9 @@ import uiModules from 'ui/modules';
 const module = uiModules.get('prelert_swimlane_vis/prelert_swimlane_vis', ['kibana']);
 module.controller('PrelertSwimlaneVisController', function ($scope, courier) {
 
-  $scope.$watch('esResponse', function (resp) {
+  // Re-render the swimlane when either the data (esResponse) or one
+  // of the view options (vis.params), such as band thresholds, change.
+  $scope.$watchMulti(['esResponse', 'vis.params'], function ([resp]) {
 
     if (!resp) {
       $scope._previousHoverPoint = null;
