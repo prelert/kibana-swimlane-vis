@@ -20,7 +20,7 @@ response times:
 Different releases of the plugin are available to work with either Kibana 4 or Kibana 5.
 
 The distribution for Kibana 4 has been tested with Kibana versions 4.3, 4.4, 4.5 and 4.6, and the Kibana 5
-build with version 5.0.0.
+build with versions 5.0.0 and 5.0.1.
 
 ## Installation
 
@@ -42,6 +42,12 @@ bin/kibana plugin -i prelert_swimlane_vis -u https://github.com/prelert/kibana-s
 
 ```
 bin/kibana-plugin install https://github.com/prelert/kibana-swimlane-vis/releases/download/v5.0.0/prelert_swimlane_vis-5.0.0.zip
+```
+
+### Kibana 5.0.1:
+
+```
+bin/kibana-plugin install https://github.com/prelert/kibana-swimlane-vis/releases/download/v5.0.1/prelert_swimlane_vis-5.0.1.zip
 ```
 
 ## Uninstall
