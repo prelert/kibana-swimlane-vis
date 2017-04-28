@@ -46,10 +46,12 @@ module.controller('PrelertSwimlaneVisController', function ($scope, courier) {
       return;
     }
 
+    let ngHideContainer = null;
     if (resp.hits.total !== 0) {
-      // Remove ng-hide from the parent div as that has display:none,
-      // resulting in the flot chart labels falling inside the chart area on first render.
-      let ngHideContainer = $('prl-swimlane-vis').closest('.ng-hide');
+      // Flot doesn't work too well when calling $.plot on an element that isn't visible.
+      // Therefore remove ng-hide from the parent div as that sets display:none, which
+      // can result in the flot chart labels falling inside the chart area on first render.
+      ngHideContainer = $('prl-swimlane-vis').closest('.ng-hide');
       ngHideContainer.removeClass('ng-hide');
     }
 
@@ -61,7 +63,37 @@ module.controller('PrelertSwimlaneVisController', function ($scope, courier) {
     // Tell the swimlane directive to render.
     $scope.$emit('render');
 
+    if (ngHideContainer !== null) {
+      // Add ng-hide class back as it is needed on parent div for dashboard grid maximize functionality.
+      ngHideContainer.addClass('ng-hide');
+    }
+
   });
+
+  const dashboardGrid = document.getElementsByTagName('dashboard-grid')[0];
+  if (dashboardGrid !== undefined) {
+    // Flot doesn't work too well when calling $.plot on an element that isn't visible.
+    // So when running inside a dashboard, add a MutationObserver to check for when the
+    // ng-hide class is altered on the parent dashboard-grid and re-render.
+    // This ensures the flot chart is displayed correctly after the dashboard panel
+    // is minimized (minimize actions causes the original panel to be un-hidden), with the
+    // lane labels positioned to the left of the lanes.
+    const observer = new MutationObserver(function (mutations) {
+      const doRender = mutations.some(function (mutation) {
+        return mutation.oldValue.includes('ng-hide');
+      });
+
+      if (doRender === true) {
+        $scope.$emit('render');
+      }
+    });
+
+    observer.observe(dashboardGrid, {
+      attributes: true,
+      attributeFilter: ['class'],
+      attributeOldValue: true
+    });
+  }
 
   $scope.processAggregations = function (aggregations) {
     let dataByViewBy = {};
