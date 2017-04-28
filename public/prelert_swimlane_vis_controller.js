@@ -243,7 +243,7 @@ module.controller('PrelertSwimlaneVisController', function ($scope, courier) {
   $scope.prelertLogoSrc = require('plugins/prelert_swimlane_vis/prelert_logo_24.png');
 
 })
-.directive('prlSwimlaneVis', function ($compile, timefilter) {
+.directive('prlSwimlaneVis', function ($compile, timefilter, config) {
 
   function link(scope, element, attrs) {
 
@@ -496,13 +496,12 @@ module.controller('PrelertSwimlaneVisController', function ($scope, courier) {
     function showTooltip(item, laneLabel) {
       const pointTime = item.datapoint[0];
       const dataModel = item.series.data[item.dataIndex][2];
-      const score = parseInt(dataModel.score);
       const metricsAgg = scope.vis.aggs.bySchemaName.metric[0];
       const metricLabel = metricsAgg.makeLabel();
       const displayScore = numeral(dataModel.score).format(scope.vis.params.tooltipNumberFormat);
 
-      // Display date using same format as used in Kibana visualizations.
-      const formattedDate = moment(pointTime).format('MMMM Do YYYY, HH:mm');
+      // Display date using dateFormat configured in Kibana settings.
+      const formattedDate = moment(pointTime).format(config.get('dateFormat'));
       let contents = formattedDate + '<br/><hr/>';
 
       contents += (metricLabel + ': ' + displayScore);
