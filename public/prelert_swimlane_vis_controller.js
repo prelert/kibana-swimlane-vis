@@ -132,9 +132,9 @@ module.controller('PrelertSwimlaneVisController', function ($scope, courier) {
       scopeInterval = $scope.vis.params.interval.customInterval;
     }
 
-    let setToInterval = _.findWhere($scope.vis.type.params.intervalOptions, {val: aggInterval});
+    let setToInterval = _.find($scope.vis.type.params.intervalOptions, {val: aggInterval});
     if (!setToInterval) {
-      setToInterval = _.findWhere($scope.vis.type.params.intervalOptions, {customInterval: aggInterval});
+      setToInterval = _.find($scope.vis.type.params.intervalOptions, {customInterval: aggInterval});
     }
     if (!setToInterval) {
       // e.g. if running inside the Kibana Visualization tab will need to add an extra option in.
@@ -208,7 +208,7 @@ module.controller('PrelertSwimlaneVisController', function ($scope, courier) {
 
   }
 
-  $scope.prelertLogoSrc = chrome.getBasePath() + '/plugins/prelert_swimlane_vis/prelert_logo_24.png';
+  $scope.prelertLogoSrc = require('plugins/prelert_swimlane_vis/prelert_logo_24.png');
 
 })
 .directive('prlSwimlaneVis', function ($compile, timefilter) {
@@ -451,7 +451,7 @@ module.controller('PrelertSwimlaneVisController', function ($scope, courier) {
       // Reverse so that the order is a-z from the top.
       keys = keys.reverse();
 
-      return _.object(keys, _.map(keys, function (key) {
+      return _.zipObject(keys, _.map(keys, function (key) {
         return list[key];
       }));
     }
