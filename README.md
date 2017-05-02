@@ -19,8 +19,20 @@ response times:
 
 Different releases of the plugin are available to work with either Kibana 4 or Kibana 5.
 
-The distribution for Kibana 4 has been tested with Kibana versions 4.3, 4.4, 4.5 and 4.6, and the Kibana 5
-build with versions 5.0.0, 5.0.1, 5.0.2, 5.1.1, 5.1.2 and 5.2.2.
+The distribution for Kibana 4 has been tested with Kibana versions:
+* 4.3
+* 4.4
+* 4.5
+* 4.6
+
+and the distribution for Kibana 5 has been built for versions:
+* 5.0.0
+* 5.0.1
+* 5.0.2
+* 5.1.1
+* 5.1.2
+* 5.2.2
+* 5.3.0
 
 ## Installation
 
@@ -73,6 +85,12 @@ bin/kibana-plugin install https://github.com/prelert/kibana-swimlane-vis/release
 ```
 bin/kibana-plugin install https://github.com/prelert/kibana-swimlane-vis/releases/download/v5.2.2/prelert_swimlane_vis-5.2.2.zip
 ```
+### Kibana 5.3.0:
+
+```
+bin/kibana-plugin install https://github.com/prelert/kibana-swimlane-vis/releases/download/v5.3.0/prelert_swimlane_vis-5.3.0.zip
+```
+
 
 ## Uninstall
 
@@ -113,8 +131,9 @@ the visualization has been saved and added to a dashboard.
 
 ## Options
 
-The options tab allows you to configure the color band thresholds and the format of the value shown
-in the tooltip when hovering over a band in the swimlane.
+The Options tab allows you to configure the color band thresholds, the format of the value shown in the tooltip
+when hovering over a band in the swimlane, and whether to display the legend showing the lower threshold values
+for each of the color bands.
 
 ![image](resources/options.png)
 
@@ -139,12 +158,20 @@ comparison website data, with values of 3000 or more displayed in red.
 
 It is not yet possible to alter the number of color bands, nor the colors used for each range.
 
+By default a legend will be displayed above the swimlane showing the configured lower band threshold values
+for each of the colors. This legend can be hidden by deselecting the *Show threshold legend* checkbox in the
+Options tab.
+
 ### Tooltip formatting
 
 By default, the value shown in the tooltip when hovering over a band in the swimlane is shown to one decimal
 place. To alter the format of the tooltip to suit values in your data set, enter the desired format in the
 *Tooltip formatting* section of the Options tab. Refer to the [Numeral.js](http://numeraljs.com/) documentation
 for the range of accepted formats, with that being the library used to format the value in the tooltip.
+
+The date and time shown in the tooltip is displayed in the format that Kibana uses for displaying pretty-formatted
+dates. This `dateFormat` option can be configured in the *Advanced Settings* page under the Kibana Management
+application.
 
 
 ## Issues
@@ -156,5 +183,3 @@ Please file issues [here](https://github.com/prelert/kibana-swimlane-vis/issues)
 Prelert is the leading provider of behavioral analytics for IT security, IT operations, and business operations teams. Our solution analyzes log data, finds anomalies, links them together and lets the data tell the story behind advanced security threats, IT performance problems, and business disruptions.
 
 Leveraging machine learning anomaly detection and other behavioral analytics capabilities, the solution automates the analysis of massive data sets, eliminating manual effort and human error. Hundreds of progressive IT organizations rely on Prelert to detect advanced threat activity, reduce false positive alerts and enable faster root cause analysis. Prelert lets your data tell the story.
-
-www.prelert.com
