@@ -42,7 +42,7 @@ function PrelertSwimlaneVisProvider(Private) {
                   'Each lane displays a different value of the field, with the ' +
                   'relative size of the metric over each interval indicated ' +
                   'by the color of the symbol at that time. ' +
-                  'Created by Prelert for Behavioral Analytics www.prelert.com',
+                  'Created by Prelert.',
     template : require('plugins/prelert_swimlane_vis/prelert_swimlane_vis.html'),
     params : {
       editor : require('plugins/prelert_swimlane_vis/prelert_swimlane_vis_params.html'),
@@ -53,7 +53,8 @@ function PrelertSwimlaneVisProvider(Private) {
         minorThreshold: 25,
         majorThreshold: 50,
         criticalThreshold: 75,
-        tooltipNumberFormat: '0.0'
+        tooltipNumberFormat: '0.0',
+        showLegend: true
       },
       intervalOptions: [{display:'Auto', val:'auto'},
                         {display:'5 minutes', val:'custom', customInterval:'5m'},

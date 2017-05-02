@@ -313,7 +313,6 @@ module.controller('PrelertSwimlaneVisController', function ($scope, courier) {
         latest = moment(bounds.max).valueOf();
       }
 
-
       const options = {
         xaxis: {
           mode: 'time',
@@ -346,7 +345,17 @@ module.controller('PrelertSwimlaneVisController', function ($scope, courier) {
           color: null,
         },
         legend : {
-          show: false
+          show: scope.vis.params.showLegend,
+          noColumns: colorBands.length,
+          container: angular.element(element).closest('.prl-swimlane-vis').find('.prl-swimlane-vis-legend'),
+          labelBoxBorderColor: 'rgba(255, 255, 255, 0);',
+          labelFormatter: function(label, series) {
+            if (label !== 'unknown') {
+              const thresholdParamName = label + 'Threshold';
+              return '' + scope.vis.params[thresholdParamName];
+            }
+            return null;
+          }
         },
         selection: {
           mode: 'x',
