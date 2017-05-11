@@ -53,6 +53,11 @@ function PrelertSwimlaneVisProvider(Private) {
         minorThreshold: 25,
         majorThreshold: 50,
         criticalThreshold: 75,
+        lowThresholdColor: '#d2e9f7',
+        warningThresholdColor: '#8bc8fb',
+        minorThresholdColor: '#ffdd00',
+        majorThresholdColor: '#ff7e00',
+        criticalThresholdColor: '#fe5050',
         tooltipNumberFormat: '0.0',
         showLegend: true
       },

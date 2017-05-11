@@ -263,7 +263,13 @@ module.controller('PrelertSwimlaneVisController', function ($scope, courier) {
 
       // Create a series for each severity color band,
       // plus an 'unknown' series for scores less than the 'low' threshold.
-      const colorBands = ['#e6e6e6', '#d2e9f7', '#8bc8fb', '#ffdd00', '#ff7e00', '#fe5050'];
+      const colorBands = [scope.vis.params.unknownThresholdColor,
+                          scope.vis.params.lowThresholdColor,
+                          scope.vis.params.warningThresholdColor,
+                          scope.vis.params.minorThresholdColor,
+                          scope.vis.params.majorThresholdColor,
+                          scope.vis.params.criticalThresholdColor];
+
       const seriesLabels = ['unknown','low','warning','minor','major','critical'];
       _.each(colorBands, function (color, i) {
         let series = {};

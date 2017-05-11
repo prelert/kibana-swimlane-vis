@@ -147,7 +147,8 @@ the visualization has been saved and added to a dashboard.
 
 The Options tab allows you to configure the color band thresholds, the format of the value shown in the tooltip
 when hovering over a band in the swimlane, and whether to display the legend showing the lower threshold values
-for each of the color bands.
+for each of the color bands. Alternative colors can be chosen here by using the provided colorpickers or by entering
+hexidecimal color values.
 
 ![image](resources/options.png)
 
@@ -170,7 +171,7 @@ enter the desired value, noting that the values entered define the *lower* thres
 in the screenshot above, the thresholds have been adjusted to suit the range of response times from the flight
 comparison website data, with values of 3000 or more displayed in red.
 
-It is not yet possible to alter the number of color bands, nor the colors used for each range.
+It is not yet possible to alter the number of color bands.
 
 By default a legend will be displayed above the swimlane showing the configured lower band threshold values
 for each of the colors. This legend can be hidden by deselecting the *Show threshold legend* checkbox in the

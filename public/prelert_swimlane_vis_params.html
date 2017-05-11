@@ -1,53 +1,63 @@
 <div class="form-group prl-swimlane-vis-options">
   <h4>Band thresholds</h4>
-  <p>Enter the lower threshold for each color band:</p>
+  <p>Enter the lower threshold and color for each band:</p>
 
   <div class="threshold-input-container">
-    <i class="fa fa-circle icon-severity-low" aria-hidden="true"></i>
+    <i class="fa fa-circle icon-severity-low" ng-style="{'color':vis.params.lowThresholdColor}" aria-hidden="true"></i>
     <input type="number" name="low_threshold_input" step="any" class="form-control"
       ng-model="vis.params.lowThreshold" ng-model-options="{ updateOn: 'blur' }"
       less-than="{{vis.params.warningThreshold}}"
       ng-required="true">
-    <kbn-info info="Defines lower threshold for values between {{vis.params.lowThreshold}} and {{vis.params.warningThreshold}}"></kbn-info>
+    <kbn-info info="Defines lower threshold for values between {{vis.params.lowThreshold}} and {{vis.params.warningThreshold}}"></kbn-info>  
+    <input colorpicker ng-model="vis.params.lowThresholdColor" type="text" class="form-control color-picker-field">
+    <kbn-info info="Define color for band in hexadecimal format. Click field for colorpicker."></kbn-info>
   </div>
 
   <div class="threshold-input-container">
-    <i class="fa fa-circle icon-severity-warning" aria-hidden="true"></i>
+    <i class="fa fa-circle icon-severity-warning" ng-style="{'color':vis.params.warningThresholdColor}" aria-hidden="true"></i>
     <input type="number" name="warning_threshold_input" step="any" class="form-control"
       ng-model="vis.params.warningThreshold" ng-model-options="{ updateOn: 'blur' }"
       greater-than="{{vis.params.lowThreshold}}"
       less-than="{{vis.params.minorThreshold}}"
       ng-required="true">
     <kbn-info info="Defines lower threshold for values between {{vis.params.warningThreshold}} and {{vis.params.minorThreshold}}"></kbn-info>
+    <input colorpicker ng-model="vis.params.warningThresholdColor" type="text" class="form-control color-picker-field">
+    <kbn-info info="Define color for band in hexadecimal format. Click field for colorpicker."></kbn-info>
   </div>
 
   <div class="threshold-input-container">
-    <i class="fa fa-circle icon-severity-minor" aria-hidden="true"></i>
+    <i class="fa fa-circle icon-severity-minor" ng-style="{'color':vis.params.minorThresholdColor}" aria-hidden="true"></i>
     <input type="number" name="minor_threshold_input" step="any" class="form-control"
       ng-model="vis.params.minorThreshold" ng-model-options="{ updateOn: 'blur' }"
       greater-than="{{vis.params.warningThreshold}}"
       less-than="{{vis.params.majorThreshold}}"
       ng-required="true">
     <kbn-info info="Defines lower threshold for values between {{vis.params.minorThreshold}} and {{vis.params.majorThreshold}}"></kbn-info>
+    <input colorpicker ng-model="vis.params.minorThresholdColor" type="text" class="form-control color-picker-field">
+    <kbn-info info="Define color for band in hexadecimal format. Click field for colorpicker."></kbn-info>
   </div>
 
   <div class="threshold-input-container">
-    <i class="fa fa-circle icon-severity-major" aria-hidden="true"></i>
+    <i class="fa fa-circle icon-severity-major" ng-style="{'color':vis.params.majorThresholdColor}" aria-hidden="true"></i>
     <input type="number" name="major_threshold_input" step="any" class="form-control"
       ng-model="vis.params.majorThreshold" ng-model-options="{ updateOn: 'blur' }"
       greater-than="{{vis.params.minorThreshold}}"
       less-than="{{vis.params.criticalThreshold}}"
       ng-required="true">
     <kbn-info info="Defines lower threshold for values between {{vis.params.majorThreshold}} and {{vis.params.criticalThreshold}}"></kbn-info>
+    <input colorpicker ng-model="vis.params.majorThresholdColor" type="text" class="form-control color-picker-field">
+    <kbn-info info="Define color for band in hexadecimal format. Click field for colorpicker."></kbn-info>
   </div>
 
   <div class="threshold-input-container">
-    <i class="fa fa-circle icon-severity-critical" aria-hidden="true"></i>
+    <i class="fa fa-circle icon-severity-critical" ng-style="{'color':vis.params.criticalThresholdColor}" aria-hidden="true"></i>
     <input type="number" name="critical_threshold_input" step="any" class="form-control"
       ng-model="vis.params.criticalThreshold" ng-model-options="{ updateOn: 'blur' }"
       greater-than="{{vis.params.majorThreshold}}"
       ng-required="true">
     <kbn-info info="Defines lower threshold for values >= {{vis.params.criticalThreshold}}"></kbn-info>
+    <input colorpicker ng-model="vis.params.criticalThresholdColor" type="text" class="form-control color-picker-field">
+    <kbn-info info="Define color for band in hexadecimal format. Click field for colorpicker."></kbn-info>
   </div>
 
 </div>
