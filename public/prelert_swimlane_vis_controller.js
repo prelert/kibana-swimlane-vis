@@ -23,16 +23,17 @@ import _ from 'lodash';
 import $ from 'jquery';
 import moment from 'moment';
 import numeral from 'numeral';
-require('imports?$=jquery!./lib/bower_components/flot/jquery.flot');
-require('imports?$=jquery!./lib/bower_components/flot/jquery.flot.selection');
-require('imports?$=jquery!./lib/bower_components/flot/jquery.flot.time');
-require('imports?$=jquery,this=>window!./lib/bower_components/flot/jquery.flot.resize');
+
+require('flot-charts/jquery.flot');
+require('flot-charts/jquery.flot.time');
+require('flot-charts/jquery.flot.selection');
 
 import 'ui/courier';
 import 'ui/timefilter';
 import 'ui/directives/inequality';
-import chrome from 'ui/chrome';
 import uiModules from 'ui/modules';
+
+import { ResizeCheckerProvider } from 'ui/resize_checker';
 
 const module = uiModules.get('prelert_swimlane_vis/prelert_swimlane_vis', ['kibana']);
 module.controller('PrelertSwimlaneVisController', function ($scope, courier) {
@@ -243,7 +244,7 @@ module.controller('PrelertSwimlaneVisController', function ($scope, courier) {
   $scope.prelertLogoSrc = require('plugins/prelert_swimlane_vis/prelert_logo_24.png');
 
 })
-.directive('prlSwimlaneVis', function ($compile, timefilter, config) {
+.directive('prlSwimlaneVis', function ($compile, timefilter, config, Private) {
 
   function link(scope, element, attrs) {
 
@@ -407,6 +408,30 @@ module.controller('PrelertSwimlaneVisController', function ($scope, courier) {
 
       // Draw the plot.
       const plot = $.plot(element, allSeries, options);
+
+      // Redraw the chart when the container is resized.
+      // Resize action is the same as that performed in the jquery.flot.resize plugin,
+      // but use the Kibana ResizeCheckerProvider for simplicity and because the
+      // jquery.flot.resize is not included with the flot plugins included by the Kibana metrics plugin.
+      const ResizeChecker = Private(ResizeCheckerProvider);
+      const resizeChecker = new ResizeChecker(angular.element(element).closest('.prl-swimlane-vis'));
+      resizeChecker.on('resize', () => {
+        const placeholder = plot.getPlaceholder();
+
+        // somebody might have hidden us and we can't plot
+        // when we don't have the dimensions
+        if (placeholder.width() === 0 || placeholder.height() === 0) {
+          return;
+        }
+
+        plot.resize();
+        plot.setupGrid();
+        plot.draw();
+      });
+
+      element.on('$destroy', () => {
+        resizeChecker.destroy();
+      });
 
       // Add tooltips to the y-axis labels to display the full 'viewBy' field
       // - useful for cases where a long text value has been cropped.
