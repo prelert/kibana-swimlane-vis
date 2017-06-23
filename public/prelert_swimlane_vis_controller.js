@@ -97,27 +97,27 @@ module.controller('PrelertSwimlaneVisController', function ($scope, courier) {
   }
 
   $scope.processAggregations = function (aggregations) {
-    let dataByViewBy = {};
+    const dataByViewBy = {};
 
     if (aggregations &&
       ($scope.vis.aggs.bySchemaName.metric !== undefined) &&
       ($scope.vis.aggs.bySchemaName.timeSplit !== undefined)) {
       // Retrieve the visualization aggregations.
-      let metricsAgg = $scope.vis.aggs.bySchemaName.metric[0];
-      let timeAgg = $scope.vis.aggs.bySchemaName.timeSplit[0];
-      let timeAggId = timeAgg.id;
+      const metricsAgg = $scope.vis.aggs.bySchemaName.metric[0];
+      const timeAgg = $scope.vis.aggs.bySchemaName.timeSplit[0];
+      const timeAggId = timeAgg.id;
 
       if ($scope.vis.aggs.bySchemaName.viewBy !== undefined) {
         // Get the buckets of the viewBy aggregation.
-        let viewByAgg = $scope.vis.aggs.bySchemaName.viewBy[0];
-        let viewByBuckets = aggregations[viewByAgg.id].buckets;
+        const viewByAgg = $scope.vis.aggs.bySchemaName.viewBy[0];
+        const viewByBuckets = aggregations[viewByAgg.id].buckets;
         _.each(viewByBuckets, function (bucket) {
           // There will be 1 bucket for each 'view by' value.
-          let viewByValue = bucket.key;
-          let timesForViewBy = {};
+          const viewByValue = bucket.key;
+          const timesForViewBy = {};
           dataByViewBy[viewByValue] = timesForViewBy;
 
-          let bucketsForViewByValue = bucket[timeAggId].buckets;
+          const bucketsForViewByValue = bucket[timeAggId].buckets;
           _.each(bucketsForViewByValue, function (valueBucket) {
             // time is the 'valueBucket' key.
             timesForViewBy[valueBucket.key] = {
@@ -128,8 +128,8 @@ module.controller('PrelertSwimlaneVisController', function ($scope, courier) {
       } else {
         // No 'View by' selected - compile data for a single swimlane
         // showing the time bucketed metric value.
-        let timesForViewBy = {};
-        let buckets = aggregations[timeAggId].buckets;
+        const timesForViewBy = {};
+        const buckets = aggregations[timeAggId].buckets;
         _.each(buckets, function (bucket) {
           timesForViewBy[bucket.key] = { value: metricsAgg.getValue(bucket) };
         });
@@ -152,7 +152,7 @@ module.controller('PrelertSwimlaneVisController', function ($scope, courier) {
     }
 
     // Retrieve the visualization aggregations.
-    let timeAgg = $scope.vis.aggs.bySchemaName.timeSplit[0];
+    const timeAgg = $scope.vis.aggs.bySchemaName.timeSplit[0];
 
     // Update the scope 'interval' field.
     let aggInterval = _.get(timeAgg, ['params', 'interval', 'val']);
@@ -165,9 +165,9 @@ module.controller('PrelertSwimlaneVisController', function ($scope, courier) {
       scopeInterval = $scope.vis.params.interval.customInterval;
     }
 
-    let setToInterval = _.find($scope.vis.type.params.intervalOptions, {val: aggInterval});
+    let setToInterval = _.find($scope.vis.type.params.intervalOptions, { val: aggInterval });
     if (!setToInterval) {
-      setToInterval = _.find($scope.vis.type.params.intervalOptions, {customInterval: aggInterval});
+      setToInterval = _.find($scope.vis.type.params.intervalOptions, { customInterval: aggInterval });
     }
     if (!setToInterval) {
       // e.g. if running inside the Kibana Visualization tab will need to add an extra option in.
@@ -188,7 +188,7 @@ module.controller('PrelertSwimlaneVisController', function ($scope, courier) {
 
     // Set the flags which indicate if the interval has been scaled.
     // e.g. if requesting points at 5 min interval would result in too many buckets being returned.
-    let timeBucketsInterval = timeAgg.buckets.getInterval();
+    const timeBucketsInterval = timeAgg.buckets.getInterval();
     setToInterval.scaled = timeBucketsInterval.scaled;
     setToInterval.scale = timeBucketsInterval.scale;
     setToInterval.description = timeBucketsInterval.description;
@@ -212,8 +212,8 @@ module.controller('PrelertSwimlaneVisController', function ($scope, courier) {
     // Set the params of the time aggregation to the selected 'interval' field.
     if ($scope.vis) {
       // Set the aggregation interval of the 'timeSplit' aggregation.
-      let visState = $scope.vis.getState();
-      let timeAgg = _.find(visState.aggs, { 'schema': 'timeSplit' });
+      const visState = $scope.vis.getState();
+      const timeAgg = _.find(visState.aggs, { 'schema': 'timeSplit' });
       timeAgg.params.interval = $scope.vis.params.interval.val;
       if ($scope.vis.params.interval.val === 'custom') {
         timeAgg.params.customInterval = $scope.vis.params.interval.customInterval;
@@ -224,10 +224,10 @@ module.controller('PrelertSwimlaneVisController', function ($scope, courier) {
       // Update the time interval of the 'editable vis'
       // i.e. if visualization is being viewed in the Kibana Visualize view,
       // we need to update the configurations for the aggregations in the editor sidebar.
-      let editableVis = $scope.vis.getEditableVis();
+      const editableVis = $scope.vis.getEditableVis();
       if (editableVis) {
-        let editableVisState = editableVis.getState();
-        let editableTimeAgg = _.find(editableVisState.aggs, { 'schema': 'timeSplit' });
+        const editableVisState = editableVis.getState();
+        const editableTimeAgg = _.find(editableVisState.aggs, { 'schema': 'timeSplit' });
         editableTimeAgg.params.interval = $scope.vis.params.interval.val;
         if ($scope.vis.params.interval.val === 'custom') {
           editableTimeAgg.params.customInterval = $scope.vis.params.interval.customInterval;
@@ -246,12 +246,12 @@ module.controller('PrelertSwimlaneVisController', function ($scope, courier) {
 })
 .directive('prlSwimlaneVis', function ($compile, timefilter, config, Private) {
 
-  function link(scope, element, attrs) {
+  function link(scope, element) {
 
     scope._previousHoverPoint = null;
     scope._influencerHoverScope = null;
 
-    scope.$on('render',function (event, d) {
+    scope.$on('render',function () {
       if (scope.vis.aggs.length !== 0 && scope.vis.aggs.bySchemaName.timeSplit !== undefined) {
         renderSwimlane();
       }
@@ -260,20 +260,20 @@ module.controller('PrelertSwimlaneVisController', function ($scope, courier) {
     function renderSwimlane() {
 
       let chartData = scope.metricsData || [];
-      let allSeries = [];
+      const allSeries = [];
 
       // Create a series for each severity color band,
       // plus an 'unknown' series for scores less than the 'low' threshold.
       const colorBands = [scope.vis.params.unknownThresholdColor,
-                          scope.vis.params.lowThresholdColor,
-                          scope.vis.params.warningThresholdColor,
-                          scope.vis.params.minorThresholdColor,
-                          scope.vis.params.majorThresholdColor,
-                          scope.vis.params.criticalThresholdColor];
+        scope.vis.params.lowThresholdColor,
+        scope.vis.params.warningThresholdColor,
+        scope.vis.params.minorThresholdColor,
+        scope.vis.params.majorThresholdColor,
+        scope.vis.params.criticalThresholdColor];
 
       const seriesLabels = ['unknown','low','warning','minor','major','critical'];
       _.each(colorBands, function (color, i) {
-        let series = {};
+        const series = {};
         series.label = seriesLabels[i];
         series.color = color;
         series.points = { fillColor: color, show: true, radius: 5, symbol: drawChartSymbol,  lineWidth: 1 };
@@ -284,7 +284,7 @@ module.controller('PrelertSwimlaneVisController', function ($scope, courier) {
 
       // Sort the lane labels in reverse so that the order is a-z from the top.
       chartData = sortChartDataByLaneLabel(chartData);
-      let laneIds = _.keys(chartData);
+      const laneIds = _.keys(chartData);
 
       let laneIndex = 0;
       _.each(chartData, function (bucketsForViewByValue, viewByValue) {
@@ -298,7 +298,7 @@ module.controller('PrelertSwimlaneVisController', function ($scope, courier) {
           pointData[0] = moment(Number(time));
           pointData[1] = laneIndex + 0.5;
           // Store the score in an additional object property for each point.
-          pointData[2] = {score: value};
+          pointData[2] = { score: value };
 
           const seriesIndex = getSeriesIndex(value);
           allSeries[seriesIndex].data.push(pointData);
@@ -311,8 +311,8 @@ module.controller('PrelertSwimlaneVisController', function ($scope, courier) {
       let earliest = null;
       let latest = null;
       if (bounds) {
-        let timeAgg = scope.vis.aggs.bySchemaName.timeSplit[0];
-        let aggInterval = timeAgg.buckets.getInterval();
+        const timeAgg = scope.vis.aggs.bySchemaName.timeSplit[0];
+        const aggInterval = timeAgg.buckets.getInterval();
 
         // Elasticsearch aggregation returns points at start of bucket,
         // so set the x-axis min to the start of the aggregation interval.
@@ -356,7 +356,7 @@ module.controller('PrelertSwimlaneVisController', function ($scope, courier) {
           noColumns: colorBands.length,
           container: angular.element(element).closest('.prl-swimlane-vis').find('.prl-swimlane-vis-legend'),
           labelBoxBorderColor: 'rgba(255, 255, 255, 0);',
-          labelFormatter: function(label, series) {
+          labelFormatter: function (label) {
             if (label !== 'unknown') {
               const thresholdParamName = label + 'Threshold';
               return '' + scope.vis.params[thresholdParamName];
@@ -383,7 +383,7 @@ module.controller('PrelertSwimlaneVisController', function ($scope, courier) {
 
         // Crop 'viewBy' labels over 27 chars of more so that the y-axis labels don't take up too much width.
         labelText = (labelText.length < 28 ? labelText : labelText.substring(0, 25) + '...');
-        let tick = [i + 0.5, labelText];
+        const tick = [i + 0.5, labelText];
         options.yaxis.ticks.push(tick);
 
         // Set up marking effects for each lane.
@@ -391,14 +391,14 @@ module.controller('PrelertSwimlaneVisController', function ($scope, courier) {
           yaxisMarking = {};
           yaxisMarking.from = i;
           yaxisMarking.to = i + 0.03;
-          options.grid.markings.push({yaxis: yaxisMarking, color: '#d5d5d5'});
+          options.grid.markings.push({ yaxis: yaxisMarking, color: '#d5d5d5' });
         }
 
         if (i % 2 !== 0) {
           yaxisMarking = {};
           yaxisMarking.from = i + 0.03;
           yaxisMarking.to = i + 1;
-          options.grid.markings.push({yaxis: yaxisMarking, color: alternateLaneColor});
+          options.grid.markings.push({ yaxis: yaxisMarking, color: alternateLaneColor });
         }
       });
 
@@ -454,8 +454,8 @@ module.controller('PrelertSwimlaneVisController', function ($scope, courier) {
               scope._influencerHoverScope.$destroy();
             }
 
-            const laneIndex = item.series.data[item.dataIndex][1] - 0.5;
-            const laneLabel = laneIds[laneIndex];
+            const hoverLaneIndex = item.series.data[item.dataIndex][1] - 0.5;
+            const laneLabel = laneIds[hoverLaneIndex];
             showTooltip(item, laneLabel);
           }
         } else {
@@ -528,12 +528,12 @@ module.controller('PrelertSwimlaneVisController', function ($scope, courier) {
       }));
     }
 
-    function drawChartSymbol(ctx, x, y, radius, shadow) {
+    function drawChartSymbol(ctx, x, y, radius) {
       const size = radius * Math.sqrt(Math.PI) / 2;
       ctx.rect(x - size, y - 14, size + size, 28);
     }
 
-    function showTooltip(item, laneLabel) {
+    function showTooltip(item) {
       const pointTime = item.datapoint[0];
       const dataModel = item.series.data[item.dataIndex][2];
       const metricsAgg = scope.vis.aggs.bySchemaName.metric[0];

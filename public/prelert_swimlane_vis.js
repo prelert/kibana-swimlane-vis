@@ -61,14 +61,14 @@ function PrelertSwimlaneVisProvider(Private) {
         tooltipNumberFormat: '0.0',
         showLegend: true
       },
-      intervalOptions: [{display:'Auto', val:'auto'},
-                        {display:'5 minutes', val:'custom', customInterval:'5m'},
-                        {display:'10 minutes', val:'custom', customInterval:'10m'},
-                        {display:'30 minutes', val:'custom', customInterval:'30m'},
-                        {display:'1 hour', val:'h'},
-                        {display:'3 hours', val:'custom', customInterval:'3h'},
-                        {display:'12 hours', val:'custom', customInterval:'12h'},
-                        {display:'1 day', val:'d'}]
+      intervalOptions: [{ display:'Auto', val:'auto' },
+                        { display:'5 minutes', val:'custom', customInterval:'5m' },
+                        { display:'10 minutes', val:'custom', customInterval:'10m' },
+                        { display:'30 minutes', val:'custom', customInterval:'30m' },
+                        { display:'1 hour', val:'h' },
+                        { display:'3 hours', val:'custom', customInterval:'3h' },
+                        { display:'12 hours', val:'custom', customInterval:'12h' },
+                        { display:'1 day', val:'d' }]
     },
     schemas : new Schemas([ {
       group : 'metrics',
@@ -96,4 +96,4 @@ function PrelertSwimlaneVisProvider(Private) {
       aggFilter : 'date_histogram'
     } ])
   });
-};
+}
