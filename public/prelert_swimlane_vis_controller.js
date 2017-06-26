@@ -252,7 +252,8 @@ module.controller('PrelertSwimlaneVisController', function ($scope, courier) {
     scope._influencerHoverScope = null;
 
     scope.$on('render',function () {
-      if (scope.vis.aggs.length !== 0 && scope.vis.aggs.bySchemaName.timeSplit !== undefined) {
+      if (scope.vis.aggs.length !== 0 && scope.vis.aggs.bySchemaName.timeSplit !== undefined
+        && _.keys(scope.metricsData).length > 0) {
         renderSwimlane();
       }
     });
