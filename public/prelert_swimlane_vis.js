@@ -59,7 +59,8 @@ function PrelertSwimlaneVisProvider(Private) {
         majorThresholdColor: '#ff7e00',
         criticalThresholdColor: '#fe5050',
         tooltipNumberFormat: '0.0',
-        showLegend: true
+        showLegend: true,
+        alphabetSortLaneLabels: 'off'
       },
       intervalOptions: [{ display:'Auto', val:'auto' },
                         { display:'5 minutes', val:'custom', customInterval:'5m' },

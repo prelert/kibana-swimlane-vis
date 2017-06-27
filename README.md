@@ -160,9 +160,9 @@ the visualization has been saved and added to a dashboard.
 ## Options
 
 The Options tab allows you to configure the color band thresholds, the format of the value shown in the tooltip
-when hovering over a band in the swimlane, and whether to display the legend showing the lower threshold values
-for each of the color bands. Alternative colors can be chosen here by using the provided colorpickers or by entering
-hexidecimal color values.
+when hovering over a band in the swimlane, whether to display the legend showing the lower threshold values
+for each of the color bands, and whether to sort the lanes alphabetically. Alternative colors for the swimlane
+cells can be chosen here by using the provided colorpickers or by entering hexidecimal color values.
 
 ![image](resources/options.png)
 
@@ -201,6 +201,12 @@ for the range of accepted formats, with that being the library used to format th
 The date and time shown in the tooltip is displayed in the format that Kibana uses for displaying pretty-formatted
 dates. This `dateFormat` option can be configured in the *Advanced Settings* page under the Kibana Management
 application.
+
+### Lane sorting
+
+By default the lanes will be displayed in the order returned by the configured *View by* bucket aggregation. To
+perform a secondary alphabetical sort to the lane order, select *Ascending* or *Descending* as desired from the
+*Order lanes alphabetically* dropdown control.
 
 
 ## Issues

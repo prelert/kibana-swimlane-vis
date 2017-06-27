@@ -8,7 +8,7 @@
       ng-model="vis.params.lowThreshold" ng-model-options="{ updateOn: 'blur' }"
       less-than="{{vis.params.warningThreshold}}"
       ng-required="true">
-    <kbn-info info="Defines lower threshold for values between {{vis.params.lowThreshold}} and {{vis.params.warningThreshold}}"></kbn-info>  
+    <kbn-info info="Defines lower threshold for values between {{vis.params.lowThreshold}} and {{vis.params.warningThreshold}}"></kbn-info>
     <input colorpicker ng-model="vis.params.lowThresholdColor" type="text" class="form-control color-picker-field">
     <kbn-info info="Define color for band in hexadecimal format. Click field for colorpicker."></kbn-info>
   </div>
@@ -77,4 +77,16 @@
     <input type="checkbox" name="showLegendControl" ng-model="vis.params.showLegend">
     Show threshold legend
   </label>
+</div>
+
+<div class="form-group">
+  <h4>Sort lanes</h4>
+  <label>Order lanes alphabetically
+    <kbn-info info="Optionally displays the lanes in alphabetical order following the ordering configured for the view by aggregation"></kbn-info>
+  </label>
+  <select name="order" ng-model="vis.params.alphabetSortLaneLabels" class="form-control">
+    <option value="off">No</option>
+    <option value="asc">Ascending</option>
+    <option value="desc">Descending</option>
+  </select>
 </div>

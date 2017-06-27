@@ -288,9 +288,16 @@ module.controller('PrelertSwimlaneVisController', function ($scope, courier, $ti
         allSeries.push(series);
       });
 
-      // Sort the lane labels in reverse so that the order is a-z from the top.
-      chartData = sortChartDataByLaneLabel(chartData);
-      const laneIds = _.keys(chartData);
+
+      let laneIds = _.keys(chartData);
+      if (scope.vis.params.alphabetSortLaneLabels === 'asc' ||
+        scope.vis.params.alphabetSortLaneLabels === 'desc') {
+        chartData = sortChartDataByLaneLabel(chartData);
+        laneIds = _.keys(chartData);
+      } else {
+        // Reverse the order of the lane IDs as they are rendered bottom up.
+        laneIds = laneIds.reverse();
+      }
 
       let laneIndex = 0;
       _.each(chartData, function (bucketsForViewByValue, viewByValue) {
@@ -526,8 +533,10 @@ module.controller('PrelertSwimlaneVisController', function ($scope, courier, $ti
         return key;
       });
 
-      // Reverse so that the order is a-z from the top.
-      keys = keys.reverse();
+      if (scope.vis.params.alphabetSortLaneLabels === 'asc') {
+        // Reverse the keys as the lanes are rendered bottom up.
+        keys = keys.reverse();
+      }
 
       return _.zipObject(keys, _.map(keys, function (key) {
         return list[key];
