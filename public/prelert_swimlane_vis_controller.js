@@ -36,7 +36,7 @@ import uiModules from 'ui/modules';
 import { ResizeCheckerProvider } from 'ui/resize_checker';
 
 const module = uiModules.get('prelert_swimlane_vis/prelert_swimlane_vis', ['kibana']);
-module.controller('PrelertSwimlaneVisController', function ($scope, courier) {
+module.controller('PrelertSwimlaneVisController', function ($scope, courier, $timeout) {
 
   // Re-render the swimlane when either the data (esResponse) or one
   // of the view options (vis.params), such as band thresholds, change.
@@ -62,7 +62,12 @@ module.controller('PrelertSwimlaneVisController', function ($scope, courier) {
     syncViewControls();
 
     // Tell the swimlane directive to render.
-    $scope.$emit('render');
+    // Run in 250ms timeout as when navigating from time range of no results to results,
+    // as otherwise the swimlane cells may not be rendered. Flot doesn't seem to work
+    // too well when calling $.plot on an element that isn't visible.
+    $timeout(() => {
+      $scope.$emit('render');
+    }, 250);
 
     if (ngHideContainer !== null) {
       // Add ng-hide class back as it is needed on parent div for dashboard grid maximize functionality.
