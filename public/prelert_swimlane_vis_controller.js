@@ -255,16 +255,21 @@ module.controller('PrelertSwimlaneVisController', function ($scope, courier, $ti
 
     scope._previousHoverPoint = null;
     scope._influencerHoverScope = null;
+    scope._resizeChecker = null;
 
     scope.$on('render',function () {
       if (scope.vis.aggs.length !== 0 && scope.vis.aggs.bySchemaName.timeSplit !== undefined
         && _.keys(scope.metricsData).length > 0) {
+
+        if (scope._resizeChecker !== null) {
+          scope._resizeChecker.destroy();
+        }
+
         renderSwimlane();
       }
     });
 
     function renderSwimlane() {
-
       let chartData = scope.metricsData || [];
       const allSeries = [];
 
@@ -427,8 +432,8 @@ module.controller('PrelertSwimlaneVisController', function ($scope, courier, $ti
       // but use the Kibana ResizeCheckerProvider for simplicity and because the
       // jquery.flot.resize is not included with the flot plugins included by the Kibana metrics plugin.
       const ResizeChecker = Private(ResizeCheckerProvider);
-      const resizeChecker = new ResizeChecker(angular.element(element).closest('.prl-swimlane-vis'));
-      resizeChecker.on('resize', () => {
+      scope._resizeChecker = new ResizeChecker(angular.element(element).closest('.prl-swimlane-vis'));
+      scope._resizeChecker.on('resize', () => {
         const placeholder = plot.getPlaceholder();
 
         // somebody might have hidden us and we can't plot
@@ -443,7 +448,7 @@ module.controller('PrelertSwimlaneVisController', function ($scope, courier, $ti
       });
 
       element.on('$destroy', () => {
-        resizeChecker.destroy();
+        scope._resizeChecker.destroy();
       });
 
       // Add tooltips to the y-axis labels to display the full 'viewBy' field
