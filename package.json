@@ -1,11 +1,11 @@
 {
   "name": "prelert_swimlane_vis",
-  "version": "5.4.3",
+  "version": "5.5.0",
   "description": "Prelert swimlane visualization plugin",
   "license": "Apache-2.0",
   "main": "index.js",
   "kibana": {
-    "version": "5.4.3"
+    "version": "5.5.0"
   },
   "scripts": {
     "lint": "eslint",

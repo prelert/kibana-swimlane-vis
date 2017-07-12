@@ -21,12 +21,12 @@
 import 'plugins/prelert_swimlane_vis/prelert_swimlane_vis_controller.js';
 import 'plugins/prelert_swimlane_vis/prelert_swimlane_vis.less';
 
-import visTypes from 'ui/registry/vis_types';
-import TemplateVisTypeProvider from 'ui/template_vis_type/template_vis_type';
-import VisSchemasProvider from 'ui/vis/schemas';
+import { VisTypesRegistryProvider } from 'ui/registry/vis_types';
+import { TemplateVisTypeProvider } from 'ui/template_vis_type/template_vis_type';
+import { VisSchemasProvider } from 'ui/vis/schemas';
 
 // Register the PrelertSwimlaneVisProvider with the visualization registry.
-visTypes.register(PrelertSwimlaneVisProvider);
+VisTypesRegistryProvider.register(PrelertSwimlaneVisProvider);
 
 function PrelertSwimlaneVisProvider(Private) {
   const TemplateVisType = Private(TemplateVisTypeProvider);

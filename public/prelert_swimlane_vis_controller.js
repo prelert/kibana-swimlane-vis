@@ -31,7 +31,7 @@ require('flot-charts/jquery.flot.selection');
 import 'ui/courier';
 import 'ui/timefilter';
 import 'ui/directives/inequality';
-import uiModules from 'ui/modules';
+import { uiModules } from 'ui/modules';
 
 import { ResizeCheckerProvider } from 'ui/resize_checker';
 
