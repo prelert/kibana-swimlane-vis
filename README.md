@@ -38,6 +38,7 @@ and the distribution for Kibana 5 has been built for versions:
 * 5.4.0
 * 5.4.1
 * 5.4.2
+* 5.4.3
 
 ## Installation
 
@@ -125,6 +126,12 @@ bin/kibana-plugin install https://github.com/prelert/kibana-swimlane-vis/release
 
 ```
 bin/kibana-plugin install https://github.com/prelert/kibana-swimlane-vis/releases/download/v5.4.2/prelert_swimlane_vis-5.4.2.zip
+```
+
+### Kibana 5.4.3:
+
+```
+bin/kibana-plugin install https://github.com/prelert/kibana-swimlane-vis/releases/download/v5.4.3/prelert_swimlane_vis-5.4.3.zip
 ```
 
 ## Uninstall
