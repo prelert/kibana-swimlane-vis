@@ -103,6 +103,9 @@ module.controller('PrelertSwimlaneVisController', function ($scope, courier, $ti
 
   $scope.processAggregations = function (aggregations) {
     const dataByViewBy = {};
+    // Keep a list of the 'view by' keys in the order that they were
+    // returned by the aggregation which will be used for the lane labels.
+    const aggViewByOrder = [];
 
     if (aggregations &&
       ($scope.vis.aggs.bySchemaName.metric !== undefined) &&
@@ -119,6 +122,7 @@ module.controller('PrelertSwimlaneVisController', function ($scope, courier, $ti
         _.each(viewByBuckets, function (bucket) {
           // There will be 1 bucket for each 'view by' value.
           const viewByValue = bucket.key;
+          aggViewByOrder.push(viewByValue);
           const timesForViewBy = {};
           dataByViewBy[viewByValue] = timesForViewBy;
 
@@ -141,12 +145,13 @@ module.controller('PrelertSwimlaneVisController', function ($scope, courier, $ti
 
         // Use the metric label as the swimlane label.
         dataByViewBy[metricsAgg.makeLabel()] = timesForViewBy;
+        aggViewByOrder.push(metricsAgg.makeLabel());
       }
 
     }
 
     $scope.metricsData = dataByViewBy;
-
+    $scope.aggViewByOrder = aggViewByOrder;
   };
 
   function syncViewControls() {
@@ -270,7 +275,7 @@ module.controller('PrelertSwimlaneVisController', function ($scope, courier, $ti
     });
 
     function renderSwimlane() {
-      let chartData = scope.metricsData || [];
+      const chartData = scope.metricsData || [];
       const allSeries = [];
 
       // Create a series for each severity color band,
@@ -293,12 +298,20 @@ module.controller('PrelertSwimlaneVisController', function ($scope, courier, $ti
         allSeries.push(series);
       });
 
-
-      let laneIds = _.keys(chartData);
+      let laneIds = scope.aggViewByOrder.slice(0);
       if (scope.vis.params.alphabetSortLaneLabels === 'asc' ||
         scope.vis.params.alphabetSortLaneLabels === 'desc') {
-        chartData = sortChartDataByLaneLabel(chartData);
-        laneIds = _.keys(chartData);
+
+        laneIds.sort(function (a, b) {
+          // Use String.localeCompare with the numeric option enabled.
+          return a.localeCompare(b, undefined, { numeric: true });
+        });
+
+        if (scope.vis.params.alphabetSortLaneLabels === 'asc') {
+          // Reverse the keys as the lanes are rendered bottom up.
+          laneIds = laneIds.reverse();
+        }
+
       } else {
         // Reverse the order of the lane IDs as they are rendered bottom up.
         laneIds = laneIds.reverse();
@@ -530,22 +543,6 @@ module.controller('PrelertSwimlaneVisController', function ($scope, courier, $ti
       if (value >= scope.vis.params.criticalThreshold) {
         return 5;
       }
-    }
-
-    function sortChartDataByLaneLabel(list) {
-      // Sorts chart data according to lane label.
-      let keys = _.sortBy(_.keys(list), function (key) {
-        return key;
-      });
-
-      if (scope.vis.params.alphabetSortLaneLabels === 'asc') {
-        // Reverse the keys as the lanes are rendered bottom up.
-        keys = keys.reverse();
-      }
-
-      return _.zipObject(keys, _.map(keys, function (key) {
-        return list[key];
-      }));
     }
 
     function drawChartSymbol(ctx, x, y, radius) {
