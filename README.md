@@ -43,8 +43,117 @@ and the distribution for Kibana 5 has been built for versions:
 * 5.5.1
 * 5.5.2
 * 5.5.3
+* 5.6.0
 
 ## Installation
+
+### Kibana 5.6.0:
+
+```
+bin/kibana-plugin install https://github.com/prelert/kibana-swimlane-vis/releases/download/v5.6.0/prelert_swimlane_vis-5.6.0.zip
+```
+
+### Kibana 5.5.3:
+
+```
+bin/kibana-plugin install https://github.com/prelert/kibana-swimlane-vis/releases/download/v5.5.3/prelert_swimlane_vis-5.5.3.zip
+```
+
+### Kibana 5.5.2:
+
+```
+bin/kibana-plugin install https://github.com/prelert/kibana-swimlane-vis/releases/download/v5.5.2/prelert_swimlane_vis-5.5.2.zip
+```
+
+### Kibana 5.5.1:
+
+```
+bin/kibana-plugin install https://github.com/prelert/kibana-swimlane-vis/releases/download/v5.5.1/prelert_swimlane_vis-5.5.1.zip
+```
+
+### Kibana 5.5.0:
+
+```
+bin/kibana-plugin install https://github.com/prelert/kibana-swimlane-vis/releases/download/v5.5.0/prelert_swimlane_vis-5.5.0.zip
+```
+
+### Kibana 5.4.3:
+
+```
+bin/kibana-plugin install https://github.com/prelert/kibana-swimlane-vis/releases/download/v5.4.3/prelert_swimlane_vis-5.4.3.zip
+```
+
+### Kibana 5.4.2:
+
+```
+bin/kibana-plugin install https://github.com/prelert/kibana-swimlane-vis/releases/download/v5.4.2/prelert_swimlane_vis-5.4.2.zip
+```
+
+### Kibana 5.4.1:
+
+```
+bin/kibana-plugin install https://github.com/prelert/kibana-swimlane-vis/releases/download/v5.4.1/prelert_swimlane_vis-5.4.1.zip
+```
+
+### Kibana 5.4.0:
+
+```
+bin/kibana-plugin install https://github.com/prelert/kibana-swimlane-vis/releases/download/v5.4.0/prelert_swimlane_vis-5.4.0.zip
+```
+
+### Kibana 5.3.2:
+
+```
+bin/kibana-plugin install https://github.com/prelert/kibana-swimlane-vis/releases/download/v5.3.2/prelert_swimlane_vis-5.3.2.zip
+```
+
+### Kibana 5.3.1:
+
+```
+bin/kibana-plugin install https://github.com/prelert/kibana-swimlane-vis/releases/download/v5.3.1/prelert_swimlane_vis-5.3.1.zip
+```
+
+### Kibana 5.3.0:
+
+```
+bin/kibana-plugin install https://github.com/prelert/kibana-swimlane-vis/releases/download/v5.3.0/prelert_swimlane_vis-5.3.0.zip
+```
+
+### Kibana 5.2.2:
+
+```
+bin/kibana-plugin install https://github.com/prelert/kibana-swimlane-vis/releases/download/v5.2.2/prelert_swimlane_vis-5.2.2.zip
+```
+
+### Kibana 5.1.2:
+
+```
+bin/kibana-plugin install https://github.com/prelert/kibana-swimlane-vis/releases/download/v5.1.2/prelert_swimlane_vis-5.1.2.zip
+```
+
+### Kibana 5.1.1:
+
+```
+bin/kibana-plugin install https://github.com/prelert/kibana-swimlane-vis/releases/download/v5.1.1/prelert_swimlane_vis-5.1.1.zip
+```
+
+### Kibana 5.0.2:
+
+```
+bin/kibana-plugin install https://github.com/prelert/kibana-swimlane-vis/releases/download/v5.0.2/prelert_swimlane_vis-5.0.2.zip
+```
+
+### Kibana 5.0.1:
+
+```
+bin/kibana-plugin install https://github.com/prelert/kibana-swimlane-vis/releases/download/v5.0.1/prelert_swimlane_vis-5.0.1.zip
+```
+
+### Kibana 5.0.0:
+
+```
+bin/kibana-plugin install https://github.com/prelert/kibana-swimlane-vis/releases/download/v5.0.0/prelert_swimlane_vis-5.0.0.zip
+```
 
 ### Kibana 4.x:
 
@@ -60,107 +169,6 @@ Windows:
 bin/kibana plugin -i prelert_swimlane_vis -u https://github.com/prelert/kibana-swimlane-vis/archive/v0.1.0.zip
 ```
 
-### Kibana 5.0.0:
-
-```
-bin/kibana-plugin install https://github.com/prelert/kibana-swimlane-vis/releases/download/v5.0.0/prelert_swimlane_vis-5.0.0.zip
-```
-
-### Kibana 5.0.1:
-
-```
-bin/kibana-plugin install https://github.com/prelert/kibana-swimlane-vis/releases/download/v5.0.1/prelert_swimlane_vis-5.0.1.zip
-```
-
-### Kibana 5.0.2:
-
-```
-bin/kibana-plugin install https://github.com/prelert/kibana-swimlane-vis/releases/download/v5.0.2/prelert_swimlane_vis-5.0.2.zip
-```
-
-### Kibana 5.1.1:
-
-```
-bin/kibana-plugin install https://github.com/prelert/kibana-swimlane-vis/releases/download/v5.1.1/prelert_swimlane_vis-5.1.1.zip
-```
-
-### Kibana 5.1.2:
-
-```
-bin/kibana-plugin install https://github.com/prelert/kibana-swimlane-vis/releases/download/v5.1.2/prelert_swimlane_vis-5.1.2.zip
-```
-
-### Kibana 5.2.2:
-
-```
-bin/kibana-plugin install https://github.com/prelert/kibana-swimlane-vis/releases/download/v5.2.2/prelert_swimlane_vis-5.2.2.zip
-```
-
-### Kibana 5.3.0:
-
-```
-bin/kibana-plugin install https://github.com/prelert/kibana-swimlane-vis/releases/download/v5.3.0/prelert_swimlane_vis-5.3.0.zip
-```
-
-### Kibana 5.3.1:
-
-```
-bin/kibana-plugin install https://github.com/prelert/kibana-swimlane-vis/releases/download/v5.3.1/prelert_swimlane_vis-5.3.1.zip
-```
-
-### Kibana 5.3.2:
-
-```
-bin/kibana-plugin install https://github.com/prelert/kibana-swimlane-vis/releases/download/v5.3.2/prelert_swimlane_vis-5.3.2.zip
-```
-
-### Kibana 5.4.0:
-
-```
-bin/kibana-plugin install https://github.com/prelert/kibana-swimlane-vis/releases/download/v5.4.0/prelert_swimlane_vis-5.4.0.zip
-```
-
-### Kibana 5.4.1:
-
-```
-bin/kibana-plugin install https://github.com/prelert/kibana-swimlane-vis/releases/download/v5.4.1/prelert_swimlane_vis-5.4.1.zip
-```
-
-### Kibana 5.4.2:
-
-```
-bin/kibana-plugin install https://github.com/prelert/kibana-swimlane-vis/releases/download/v5.4.2/prelert_swimlane_vis-5.4.2.zip
-```
-
-### Kibana 5.4.3:
-
-```
-bin/kibana-plugin install https://github.com/prelert/kibana-swimlane-vis/releases/download/v5.4.3/prelert_swimlane_vis-5.4.3.zip
-```
-
-### Kibana 5.5.0:
-
-```
-bin/kibana-plugin install https://github.com/prelert/kibana-swimlane-vis/releases/download/v5.5.0/prelert_swimlane_vis-5.5.0.zip
-```
-
-### Kibana 5.5.1:
-
-```
-bin/kibana-plugin install https://github.com/prelert/kibana-swimlane-vis/releases/download/v5.5.1/prelert_swimlane_vis-5.5.1.zip
-```
-
-### Kibana 5.5.2:
-
-```
-bin/kibana-plugin install https://github.com/prelert/kibana-swimlane-vis/releases/download/v5.5.2/prelert_swimlane_vis-5.5.2.zip
-```
-
-### Kibana 5.5.3:
-
-```
-bin/kibana-plugin install https://github.com/prelert/kibana-swimlane-vis/releases/download/v5.5.3/prelert_swimlane_vis-5.5.3.zip
-```
 
 ## Uninstall
 
