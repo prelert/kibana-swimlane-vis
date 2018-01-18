@@ -1,15 +1,6 @@
 <div class="prl-swimlane-vis" ng-controller="PrelertSwimlaneVisController">
   <div style="display:inline-block; width: 100%;">
     <div style="float:left; display:inline;">
-      <label class="small">Interval:</label>
-      <select class="form-control" ng-model="vis.params.interval" ng-options="interval as interval.display for interval in vis.type.params.intervalOptions track by interval.display" ng-change="updateViewState()">
-      </select>
-      <kbn-info
-        ng-show="vis.params.interval.scaled"
-        placement="right"
-        class="text-warning"
-        info="This interval creates {{ vis.params.interval.scale > 1 ? 'buckets that are too large' : 'too many buckets' }} to show in the selected time range, so it has been scaled to {{ vis.params.interval.description }}">
-      </kbn-info>
       <div ng-show="vis.params.showLegend" class="prl-swimlane-legend-container">
         <label class="small">Thresholds:</label>
         <div class="prl-swimlane-vis-legend">

@@ -1,11 +1,11 @@
 {
   "name": "prelert_swimlane_vis",
-  "version": "5.6.6",
+  "version": "6.0.0",
   "description": "Prelert swimlane visualization plugin",
   "license": "Apache-2.0",
   "main": "index.js",
   "kibana": {
-    "version": "5.6.6"
+    "version": "6.0.0"
   },
   "scripts": {
     "lint": "eslint",
@@ -16,12 +16,12 @@
     "postinstall": "plugin-helpers postinstall"
   },
   "devDependencies": {
-    "@elastic/eslint-config-kibana": "0.0.2",
+    "@elastic/eslint-config-kibana": "0.6.1",
     "@elastic/plugin-helpers": "^6.0.0",
-    "babel-eslint": "4.1.8",
+    "babel-eslint": "7.2.3",
     "chai": "^3.5.0",
-    "eslint": "1.10.3",
-    "eslint-plugin-mocha": "1.1.0"
+    "eslint": "^3.19.0",
+    "eslint-plugin-mocha": "^4.9.0"
   },
   "dependencies": {
     "angular-bootstrap-colorpicker": "^3.0.31"

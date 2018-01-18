@@ -1,7 +1,7 @@
 /*
  ****************************************************************************
  *                                                                          *
- * Copyright 2016 Prelert Ltd                                          *
+ * Copyright 2012-2018 Elasticsearch BV                                     *
  *                                                                          *
  * Licensed under the Apache License, Version 2.0 (the "License");          *
  * you may not use this file except in compliance with the License.         *
@@ -18,12 +18,12 @@
  ****************************************************************************
  */
 
-module.exports = function (kibana) {
+export default function (kibana) {
   return new kibana.Plugin({
-    name: 'prelert_swimlane_vis',
-    require: ['kibana', 'elasticsearch'],
     uiExports: {
-      visTypes: ['plugins/prelert_swimlane_vis/prelert_swimlane_vis']
+      visTypes: [
+        'plugins/prelert_swimlane_vis/prelert_swimlane_vis'
+      ]
     }
   });
-};
+}
