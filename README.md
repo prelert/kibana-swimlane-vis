@@ -20,9 +20,9 @@ response times:
 - [Uninstall](#uninstall)
 - [Usage](#usage)
 - [Options](#options)
-  -[Color band thresholds](#color-band-thresholds)
-  -[Tooltip formatting](#tooltip-formatting)
-  -[Lane sorting](#lane-sorting)
+  - [Color band thresholds](#color-band-thresholds)
+  - [Tooltip formatting](#tooltip-formatting)
+  - [Lane sorting](#lane-sorting)
 - [Issues](#issues)
 - [About Prelert](#about-prelert)
 
@@ -331,7 +331,7 @@ Please file issues [here](https://github.com/prelert/kibana-swimlane-vis/issues)
 ## About Prelert
 
 Prelert was the company behind behavioral analytics for IT security, IT operations, and business operations teams.
-They joined forces with Elastic in [September 2016](https://github.com/prelert/kibana-swimlane-vis/issues) and now
+They [joined forces with Elastic](https://www.elastic.co/blog/welcome-prelert-to-the-elastic-team) in September 2016 and now
 form the Machine Learning team at Elastic.
 
 The machine learning features in the Elastic stack automatically model the behavior of your Elasticsearch data — trends,
