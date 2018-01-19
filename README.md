@@ -1,6 +1,6 @@
 # Swimlane visualization for Kibana
 
-A swimlane visualization for Kibana, with builds available for both Kibana 4 and Kibana 5.
+A swimlane visualization for Kibana, with builds available for both Kibana 6.x, 5.x and 4.x.
 
 The visualization displays the behavior of a metric value over time across a field from the results.
 Each lane displays a different value of the selected field, with the relative size of the metric
@@ -15,43 +15,62 @@ response times:
 
 ![image](resources/visualization.png)
 
+- [Compatibility](#compatibility)
+- [Installation](#installation)
+- [Uninstall](#uninstall)
+- [Usage](#usage)
+- [Options](#options)
+  -[Color band thresholds](#color-band-thresholds)
+  -[Tooltip formatting](#tooltip-formatting)
+  -[Lane sorting](#lane-sorting)
+- [Issues](#issues)
+- [About Prelert](#about-prelert)
+
+
 ## Compatibility
 
-Different releases of the plugin are available to work with either Kibana 4 or Kibana 5.
+Kibana enforces that installed plugins match the version of Kibana itself, so different releases of the
+swimlane plugin are available for each new Kibana release.
 
-The distribution for Kibana 4 has been tested with Kibana versions:
-* 4.3
-* 4.4
-* 4.5
-* 4.6
+The distribution for Kibana 6 has been built for versions:
+* 6.0.0
 
-and the distribution for Kibana 5 has been built for versions:
-* 5.0.0
-* 5.0.1
-* 5.0.2
-* 5.1.1
-* 5.1.2
-* 5.2.2
-* 5.3.0
-* 5.3.1
-* 5.3.2
-* 5.4.0
-* 5.4.1
-* 5.4.2
-* 5.4.3
-* 5.5.0
-* 5.5.1
-* 5.5.2
-* 5.5.3
-* 5.6.0
-* 5.6.1
-* 5.6.2
-* 5.6.3
-* 5.6.4
-* 5.6.5
+The distribution for Kibana 5 has been built for versions:
 * 5.6.6
+* 5.6.5
+* 5.6.4
+* 5.6.3
+* 5.6.2
+* 5.6.1
+* 5.6.0
+* 5.5.3
+* 5.5.2
+* 5.5.1
+* 5.5.0
+* 5.4.3
+* 5.4.2
+* 5.4.1
+* 5.4.0
+* 5.3.2
+* 5.3.1
+* 5.3.0
+* 5.2.2
+* 5.1.2
+* 5.1.1
+* 5.0.2
+* 5.0.1
+* 5.0.0
+
+For Kibana 4 a single release was available and tested with versions 4.3, 4.4, 4.5 and 4.6
+
 
 ## Installation
+
+### Kibana 6.0.0:
+
+```
+bin/kibana-plugin install https://github.com/prelert/kibana-swimlane-vis/releases/download/v6.0.0/prelert_swimlane_vis-6.0.0.zip
+```
 
 ### Kibana 5.6.6:
 
@@ -214,7 +233,7 @@ bin/kibana plugin -i prelert_swimlane_vis -u https://github.com/prelert/kibana-s
 
 ## Uninstall
 
-### Kibana 5.x:
+### Kibana 6.x and 5.x:
 
 ```
 bin/kibana-plugin remove prelert_swimlane_vis
@@ -223,10 +242,10 @@ bin/kibana-plugin remove prelert_swimlane_vis
 ## Usage
 
 The first step in creating the visualization is to configure the metric that will be displayed.
-Select the Elasticsearch aggregation to be used - count, average, sum, min and max are currently available.
-If using average, sum, min or max, select the numeric field that will be aggregated. From Kibana 4.5, a
+Select the Elasticsearch aggregation to be used - count, average, sum, min, max and unique count are currently available.
+If using average, sum, min, max or unique count, select the numeric field that will be aggregated. A
 custom label can also be entered if desired, which will be displayed against the value in tooltips. In our
-example we are plotting maximum response time, with the numeric value stored in the `actual` field of the results:
+example we are plotting average response time, with the numeric value stored in the `responsetime` field of the index:
 
 ![image](resources/step1.png)
 
@@ -234,7 +253,7 @@ The next step is to configure the field by which you want the results to be spli
 an Elasticsearch terms aggregation. Select the field for the *View by* bucket aggregation, which will typically be
 one of the *string* type fields in your results. Use the *Size* dropdown to select the maximum number of swimlanes
 that will be displayed. In our example, we will be viewing results by `airline`, showing the top 15 airlines by
-maximum response time:
+average response time:
 
 ![image](resources/step2.png)
 
@@ -244,8 +263,10 @@ selected metric over all results.
 The final step is to select the time field in your results. The time frame for the intervals in the swimlane
 visualization can be specified in terms of seconds, minutes, hours, days, weeks, months, or years, or just
 leave it to the *Auto* setting of Kibana which will aim to pick the optimum interval depending on the time
-span of the query. An *interval* dropdown control is also available at the top of the swimlane for use when
-the visualization has been saved and added to a dashboard.
+span of the query. Note for 5.x releases of the swimlane, an *interval* dropdown control is also available
+at the top of the swimlane for use when the visualization has been saved and added to a dashboard. This
+control is not available for 6.0 and 6.1 releases due to an [issue](https://github.com/elastic/kibana/pull/15629)
+with the Kibana Angular visualization type, but will be re-introduced with the 6.2 release.
 
 ![image](resources/step3.png)
 
@@ -253,16 +274,15 @@ the visualization has been saved and added to a dashboard.
 
 The Options tab allows you to configure the color band thresholds, the format of the value shown in the tooltip
 when hovering over a band in the swimlane, whether to display the legend showing the lower threshold values
-for each of the color bands, and whether to sort the lanes alphabetically. Alternative colors for the swimlane
-cells can be chosen here by using the provided colorpickers or by entering hexidecimal color values.
+for each of the color bands, and whether to sort the lanes alphabetically.
 
 ![image](resources/options.png)
 
 ### Color band thresholds
 
-The swimlane uses five different colors to indicate the value of the metric over a time interval, from
-light blue for the smallest values, through to red for the largest values. By default, the thresholds are
-set for a 0 to 100 range of values, with the ranges set to:
+The swimlane uses five different colors to indicate the value of the metric over a time interval.
+By default, the thresholds are set for a 0 to 100 range of values, with light blue used for the smallest value,
+through to red for the largest value, and the ranges set to:
 
 | Range            | Color         |
 | -----------------|---------------|
@@ -276,6 +296,9 @@ To alter the numeric ranges for any of the bands, use the *Band thresholds* sect
 enter the desired value, noting that the values entered define the *lower* threshold for each band. For example,
 in the screenshot above, the thresholds have been adjusted to suit the range of response times from the flight
 comparison website data, with values of 3000 or more displayed in red.
+
+Alternative colors for the swimlane cells can be chosen here by using the provided colorpickers or by
+entering hexidecimal color values.
 
 It is not yet possible to alter the number of color bands.
 
@@ -305,8 +328,12 @@ perform a secondary alphabetical sort to the lane order, select *Ascending* or *
 Please file issues [here](https://github.com/prelert/kibana-swimlane-vis/issues).
 
 
-## About Us
+## About Prelert
 
-Prelert is the leading provider of behavioral analytics for IT security, IT operations, and business operations teams. Our solution analyzes log data, finds anomalies, links them together and lets the data tell the story behind advanced security threats, IT performance problems, and business disruptions.
+Prelert was the company behind behavioral analytics for IT security, IT operations, and business operations teams.
+They joined forces with Elastic in [September 2016](https://github.com/prelert/kibana-swimlane-vis/issues) and now
+form the Machine Learning team at Elastic.
 
-Leveraging machine learning anomaly detection and other behavioral analytics capabilities, the solution automates the analysis of massive data sets, eliminating manual effort and human error. Hundreds of progressive IT organizations rely on Prelert to detect advanced threat activity, reduce false positive alerts and enable faster root cause analysis. Prelert lets your data tell the story.
+The machine learning features in the Elastic stack automatically model the behavior of your Elasticsearch data — trends,
+periodicity, and more — in real time to identify issues faster, streamline root cause analysis, and reduce false positives.
+More information about Machine Learning in the Elastic stack can be found [here](https://www.elastic.co/products/x-pack/machine-learning).
