@@ -47,16 +47,14 @@ function PrelertSwimlaneProvider(Private) {
     visConfig: {
       defaults: {
         interval: { display: 'Auto', val: 'auto' },
-        lowThreshold: 0,
-        warningThreshold: 3,
-        minorThreshold: 25,
-        majorThreshold: 50,
-        criticalThreshold: 75,
-        lowThresholdColor: '#d2e9f7',
-        warningThresholdColor: '#8bc8fb',
-        minorThresholdColor: '#ffdd00',
-        majorThresholdColor: '#ff7e00',
-        criticalThresholdColor: '#fe5050',
+        thresholdBands: [
+          { value: 0, color: '#d2e9f7' },
+          { value: 3, color: '#8bc8fb' },
+          { value: 25, color: '#ffdd00' },
+          { value: 50, color: '#ff7e00' },
+          { value: 75, color: '#fe5050' }
+        ],
+        unknownThresholdColor: '#e6e6e6',
         tooltipNumberFormat: '0.0',
         showLegend: true,
         alphabetSortLaneLabels: 'off'

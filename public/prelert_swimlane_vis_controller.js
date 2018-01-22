@@ -230,26 +230,36 @@ module.controller('PrelertSwimlaneVisController', function ($scope, courier, $ti
 
       function renderSwimlane() {
         const chartData = scope.metricsData || [];
-        const allSeries = [];
 
-        // Create a series for each severity color band,
-        // plus an 'unknown' series for scores less than the 'low' threshold.
-        const colorBands = [scope.vis.params.unknownThresholdColor,
-          scope.vis.params.lowThresholdColor,
-          scope.vis.params.warningThresholdColor,
-          scope.vis.params.minorThresholdColor,
-          scope.vis.params.majorThresholdColor,
-          scope.vis.params.criticalThresholdColor];
+        // Create a series for each severity color band.
+        const allSeries = _.map(scope.vis.params.thresholdBands, (thresholdBand, index) => {
+          return {
+            label: `series_${index}`,
+            color: thresholdBand.color,
+            points: {
+              fillColor: thresholdBand.color,
+              show: true,
+              radius: 5,
+              symbol: drawChartSymbol,
+              lineWidth: 1 },
+            data: [],
+            shadowSize: 0,
+            thresholdValue: thresholdBand.value
+          };
+        });
 
-        const seriesLabels = ['unknown', 'low', 'warning', 'minor', 'major', 'critical'];
-        _.each(colorBands, function (color, i) {
-          const series = {};
-          series.label = seriesLabels[i];
-          series.color = color;
-          series.points = { fillColor: color, show: true, radius: 5, symbol: drawChartSymbol,  lineWidth: 1 };
-          series.data = [];
-          series.shadowSize = 0;
-          allSeries.push(series);
+        // Add an 'unknown' series for indicating scores less than the lowest configured threshold.
+        allSeries.unshift({
+          label: `series_unknown`,
+          color: scope.vis.params.unknownThresholdColor,
+          points: {
+            fillColor: scope.vis.params.unknownThresholdColor,
+            show: true,
+            radius: 5,
+            symbol: drawChartSymbol,
+            lineWidth: 1 },
+          data: [],
+          shadowSize: 0
         });
 
         let laneIds = scope.aggViewByOrder.slice(0);
@@ -326,7 +336,7 @@ module.controller('PrelertSwimlaneVisController', function ($scope, courier, $ti
             min: 0,
             color: null,
             tickColor: null,
-            tickLength: 0,
+            tickLength: 0
           },
           grid: {
             backgroundColor: null,
@@ -334,17 +344,16 @@ module.controller('PrelertSwimlaneVisController', function ($scope, courier, $ti
             hoverable: true,
             clickable: false,
             borderColor: '#cccccc',
-            color: null,
+            color: null
           },
           legend: {
             show: scope.vis.params.showLegend,
-            noColumns: colorBands.length,
+            noColumns: scope.vis.params.thresholdBands.length,
             container: angular.element(element).closest('.prl-swimlane-vis').find('.prl-swimlane-vis-legend'),
             labelBoxBorderColor: 'rgba(255, 255, 255, 0);',
-            labelFormatter: function (label) {
-              if (label !== 'unknown') {
-                const thresholdParamName = label + 'Threshold';
-                return '' + scope.vis.params[thresholdParamName];
+            labelFormatter: function (label, series) {
+              if (label !== 'series_unknown') {
+                return `${series.thresholdValue}`;
               }
               return null;
             }
@@ -471,32 +480,33 @@ module.controller('PrelertSwimlaneVisController', function ($scope, courier, $ti
           timefilter.time.from = moment.utc(zoomFrom);
           timefilter.time.to = moment.utc(zoomTo);
           timefilter.time.mode = 'absolute';
+          timefilter.update();
+
         });
 
       }
 
       function getSeriesIndex(value) {
         // Maps value to the index of the series used for values in that range.
-        // Uses the five colour bands configured in the visualization options,
-        // plus an 'unknown' series for scores less than the 'low' threshold.
-        if (value < scope.vis.params.lowThreshold) {
-          return 0; // 'Unknown' for numbers less than low threshold.
+        // Uses the band thresholds configured in the visualization options,
+        // plus an 'unknown' series for scores less than the lowest threshold.
+        let seriesIndex = 0;
+        const bands = scope.vis.params.thresholdBands;
+        if (value < bands[0].value) {
+          // 'Unknown' series for numbers less than the lowest threshold.
+          seriesIndex = 0;
+        } else if (value >= _.last(bands).value) {
+          seriesIndex = bands.length;
+        } else {
+          for (let i = 0; i < bands.length; i++) {
+            if (value < bands[i].value) {
+              seriesIndex = i;
+              break;
+            }
+          }
         }
-        if (value < scope.vis.params.warningThreshold) {
-          return 1;
-        }
-        if (value < scope.vis.params.minorThreshold) {
-          return 2;
-        }
-        if (value < scope.vis.params.majorThreshold) {
-          return 3;
-        }
-        if (value < scope.vis.params.criticalThreshold) {
-          return 4;
-        }
-        if (value >= scope.vis.params.criticalThreshold) {
-          return 5;
-        }
+
+        return seriesIndex;
       }
 
       function drawChartSymbol(ctx, x, y, radius) {
@@ -544,5 +554,4 @@ module.controller('PrelertSwimlaneVisController', function ($scope, courier, $ti
     return {
       link: link
     };
-  }
-);
+  });
