@@ -287,8 +287,8 @@ for each of the color bands, and whether to sort the lanes alphabetically.
 
 ### Color band thresholds
 
-The swimlane uses five different colors to indicate the value of the metric over a time interval.
-By default, the thresholds are set for a 0 to 100 range of values, with light blue used for the smallest value,
+The swimlane uses different colors to indicate the value of the metric over a time interval. By default,
+five threshold bands are set for a 0 to 100 range of values, with light blue used for the smallest value,
 through to red for the largest value, and the ranges set to:
 
 | Range            | Color         |
@@ -307,7 +307,7 @@ comparison website data, with values of 3000 or more displayed in red.
 Alternative colors for the swimlane cells can be chosen here by using the provided colorpickers or by
 entering hexidecimal color values.
 
-It is not yet possible to alter the number of color bands.
+The number of color bands can also be altered, using the Add or Delete buttons.
 
 By default a legend will be displayed above the swimlane showing the configured lower band threshold values
 for each of the colors. This legend can be hidden by deselecting the *Show threshold legend* checkbox in the
