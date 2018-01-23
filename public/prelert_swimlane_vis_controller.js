@@ -82,8 +82,8 @@ module.controller('PrelertSwimlaneVisController', function ($scope, courier, $ti
     // This ensures the flot chart is displayed correctly after the dashboard panel
     // is minimized (minimize actions causes the original panel to be un-hidden), with the
     // lane labels positioned to the left of the lanes.
-    const observer = new MutationObserver(function (mutations) {
-      const doRender = mutations.some(function (mutation) {
+    const observer = new MutationObserver((mutations) => {
+      const doRender = mutations.some((mutation) => {
         return mutation.oldValue.includes('ng-hide');
       });
 
@@ -117,15 +117,18 @@ module.controller('PrelertSwimlaneVisController', function ($scope, courier, $ti
         // Get the buckets of the viewBy aggregation.
         const viewByAgg = $scope.vis.aggs.bySchemaName.viewBy[0];
         const viewByBuckets = aggregations[viewByAgg.id].buckets;
-        _.each(viewByBuckets, function (bucket) {
+        _.each(viewByBuckets, (bucket) => {
           // There will be 1 bucket for each 'view by' value.
-          const viewByValue = bucket.key;
+          const viewByValue = bucket.key.toString();
+
+          // Store 'view by' values as Strings in aggViewByOrder array
+          // to match keys in dataByViewBy Object.
           aggViewByOrder.push(viewByValue);
           const timesForViewBy = {};
           dataByViewBy[viewByValue] = timesForViewBy;
 
           const bucketsForViewByValue = bucket[timeAggId].buckets;
-          _.each(bucketsForViewByValue, function (valueBucket) {
+          _.each(bucketsForViewByValue, (valueBucket) => {
             // time is the 'valueBucket' key.
             timesForViewBy[valueBucket.key] = {
               value: metricsAgg.getValue(valueBucket)
@@ -137,7 +140,7 @@ module.controller('PrelertSwimlaneVisController', function ($scope, courier, $ti
         // showing the time bucketed metric value.
         const timesForViewBy = {};
         const buckets = aggregations[timeAggId].buckets;
-        _.each(buckets, function (bucket) {
+        _.each(buckets, (bucket) => {
           timesForViewBy[bucket.key] = { value: metricsAgg.getValue(bucket) };
         });
 
@@ -213,7 +216,7 @@ module.controller('PrelertSwimlaneVisController', function ($scope, courier, $ti
       scope._influencerHoverScope = null;
       scope._resizeChecker = null;
 
-      scope.$on('render', function () {
+      scope.$on('render', () => {
         if (scope.vis.aggs.length !== 0 && scope.vis.aggs.bySchemaName.timeSplit !== undefined
           && _.keys(scope.metricsData).length > 0) {
 
@@ -266,7 +269,7 @@ module.controller('PrelertSwimlaneVisController', function ($scope, courier, $ti
         if (scope.vis.params.alphabetSortLaneLabels === 'asc' ||
           scope.vis.params.alphabetSortLaneLabels === 'desc') {
 
-          laneIds.sort(function (a, b) {
+          laneIds.sort((a, b) => {
             // Use String.localeCompare with the numeric option enabled.
             return a.localeCompare(b, undefined, { numeric: true });
           });
@@ -282,11 +285,11 @@ module.controller('PrelertSwimlaneVisController', function ($scope, courier, $ti
         }
 
         let laneIndex = 0;
-        _.each(chartData, function (bucketsForViewByValue, viewByValue) {
+        _.each(chartData, (bucketsForViewByValue, viewByValue) => {
 
           laneIndex = laneIds.indexOf(viewByValue);
 
-          _.each(bucketsForViewByValue, function (dataForTime, time) {
+          _.each(bucketsForViewByValue, (dataForTime, time) => {
             const value = dataForTime.value;
 
             const pointData = new Array();
@@ -372,11 +375,11 @@ module.controller('PrelertSwimlaneVisController', function ($scope, courier, $ti
         options.grid.markings = [];
 
         let yaxisMarking;
-        _.each(laneIds, function (labelId, i) {
+        _.each(laneIds, (labelId, i) => {
           let labelText = labelId;
 
           // Crop 'viewBy' labels over 27 chars of more so that the y-axis labels don't take up too much width.
-          labelText = (labelText.length < 28 ? labelText : labelText.substring(0, 25) + '...');
+          labelText = (labelText.toString().length < 28 ? labelText : labelText.toString().substring(0, 25) + '...');
           const tick = [i + 0.5, labelText];
           options.yaxis.ticks.push(tick);
 
@@ -431,14 +434,14 @@ module.controller('PrelertSwimlaneVisController', function ($scope, courier, $ti
         // - useful for cases where a long text value has been cropped.
         // NB. requires z-index set in CSS so that hover is picked up on label.
         const yAxisLabelDivs = $('.flot-y-axis', angular.element(element)).find('.flot-tick-label');
-        _.each(laneIds, function (labelId, i) {
+        _.each(laneIds, (labelId, i) => {
           const labelText = labelId;
           $(yAxisLabelDivs[i]).attr('title', labelText);
         });
 
         // Show tooltips on point hover.
         element.unbind('plothover');
-        element.bind('plothover', function (event, pos, item) {
+        element.bind('plothover', (event, pos, item) => {
           if (item) {
             element.addClass('prl-swimlane-vis-point-over ');
             if (scope._previousHoverPoint !== item.dataIndex) {
@@ -464,7 +467,7 @@ module.controller('PrelertSwimlaneVisController', function ($scope, courier, $ti
 
         // Set the Kibana timefilter if the user selects a range on the chart.
         element.unbind('plotselected');
-        element.bind('plotselected', function (event, ranges) {
+        element.bind('plotselected', (event, ranges) => {
           let zoomFrom = ranges.xaxis.from;
           let zoomTo = ranges.xaxis.to;
 
