@@ -23,10 +23,7 @@ import _ from 'lodash';
 import moment from 'moment';
 import numeral from 'numeral';
 
-import $ from 'jquery';
-require('flot-charts/jquery.flot');
-require('flot-charts/jquery.flot.time');
-require('flot-charts/jquery.flot.selection');
+import $ from 'ui/flot-charts';
 
 import logo from './prelert_logo_24.png';
 
