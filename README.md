@@ -33,6 +33,7 @@ Kibana enforces that installed plugins match the version of Kibana itself, so di
 swimlane plugin are available for each new Kibana release.
 
 The distribution for Kibana 6 has been built for versions:
+* 6.2.0
 * 6.1.3
 * 6.1.2
 * 6.1.1
@@ -70,6 +71,12 @@ For Kibana 4 a single release was available and tested with versions 4.3, 4.4, 4
 
 
 ## Installation
+### Kibana 6.2.0:
+
+```
+bin/kibana-plugin install https://github.com/prelert/kibana-swimlane-vis/releases/download/v6.2.0/prelert_swimlane_vis-6.2.0.zip
+```
+
 ### Kibana 6.1.3:
 
 ```
@@ -297,10 +304,10 @@ selected metric over all results.
 The final step is to select the time field in your results. The time frame for the intervals in the swimlane
 visualization can be specified in terms of seconds, minutes, hours, days, weeks, months, or years, or just
 leave it to the *Auto* setting of Kibana which will aim to pick the optimum interval depending on the time
-span of the query. Note for 5.x releases of the swimlane, an *interval* dropdown control is also available
-at the top of the swimlane for use when the visualization has been saved and added to a dashboard. This
-control is not available for 6.0 and 6.1 releases due to an [issue](https://github.com/elastic/kibana/pull/15629)
-with the Kibana Angular visualization type, but will be re-introduced with the 6.2 release.
+span of the query. An *interval* dropdown control is also available at the top of the swimlane for use when
+the visualization has been saved and added to a dashboard (this control was not available for 6.0 and 6.1 releases
+due to an [issue](https://github.com/elastic/kibana/pull/15629) with the Kibana Angular
+visualization type).
 
 ![image](resources/step3.png)
 
