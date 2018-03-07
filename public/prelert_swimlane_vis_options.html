@@ -1,29 +1,36 @@
-<div class="form-group prl-swimlane-vis-options">
-  <h4>Band thresholds</h4>
-  <p>Enter the lower threshold and color for each band:</p>
+<div class="kuiSideBarSection">
+  <div class="kuiSideBarSectionTitle">
+    <div class="kuiSideBarSectionTitle__text">
+      Band thresholds
+    </div>
+  </div>
 
-  <div ng-repeat="thresholdBand in vis.params.thresholdBands track by $index" class="threshold-input-container">
-    <i class="fa fa-circle" ng-style="{'color':thresholdBand.color}" aria-hidden="true"></i>
-    <input type="number"
-      name="threshold_input_{{$index}}"
-      step="any"
-      class="form-control threshold-value-field"
-      ng-model="thresholdBand.value"
-      ng-model-options="{ updateOn: 'blur' }"
-      greater-than="{{$index > 0 ? vis.params.thresholdBands[$index - 1].value : Number.MIN_VALUE}}"
-      less-than="{{$index < vis.params.thresholdBands.length - 1 ? vis.params.thresholdBands[$index + 1].value : Number.MAX_VALUE}}"
-      ng-required="true">
-    <kbn-info info="Defines lower threshold for values >= {{thresholdBand.value}}"></kbn-info>
-    <input colorpicker ng-model="thresholdBand.color" type="text" class="form-control color-picker-field">
-    <kbn-info info="Define color for band in hexadecimal format. Click field for colorpicker."></kbn-info>
-    <div class="kuiFieldGroupSection threshold-delete-control">
-      <button aria-label="Remove this threshold band"
-        ng-click="vis.params.thresholdBands.splice($index, 1)"
-        ng-disabled="vis.params.thresholdBands.length === 1"
-        class="kuiButton kuiButton--danger kuiButton--small"
-        type="button">
-        <span class="kuiIcon fa-times"></span>
-      </button>
+  <div class="text">Enter the lower threshold and color for each band:</div>
+
+  <div class="threshold-inputs">
+    <div ng-repeat="thresholdBand in vis.params.thresholdBands track by $index" class="threshold-input-container">
+      <i class="fa fa-circle" ng-style="{'color':thresholdBand.color}" aria-hidden="true"></i>
+      <input type="number"
+        name="threshold_input_{{$index}}"
+        step="any"
+        class="form-control threshold-value-field"
+        ng-model="thresholdBand.value"
+        ng-model-options="{ updateOn: 'blur' }"
+        greater-than="{{$index > 0 ? vis.params.thresholdBands[$index - 1].value : Number.MIN_VALUE}}"
+        less-than="{{$index < vis.params.thresholdBands.length - 1 ? vis.params.thresholdBands[$index + 1].value : Number.MAX_VALUE}}"
+        ng-required="true">
+      <kbn-info info="Defines lower threshold for values >= {{thresholdBand.value}}"></kbn-info>
+      <input colorpicker ng-model="thresholdBand.color" type="text" class="form-control color-picker-field">
+      <kbn-info info="Define color for band in hexadecimal format. Click field for colorpicker."></kbn-info>
+      <div class="kuiFieldGroupSection threshold-delete-control">
+        <button aria-label="Remove this threshold band"
+          ng-click="vis.params.thresholdBands.splice($index, 1)"
+          ng-disabled="vis.params.thresholdBands.length === 1"
+          class="kuiButton kuiButton--danger kuiButton--small"
+          type="button">
+          <span class="kuiIcon fa-times"></span>
+        </button>
+      </div>
     </div>
   </div>
 
@@ -32,34 +39,59 @@
     type="button" class="kuiButton kuiButton--primary kuiButton--fullWidth">
     <i class="fa fa-plus"></i> Add
   </button>
-
 </div>
 
-<div class="form-group">
-  <h4>Tooltip formatting</h4>
-  <label>Tooltip number format
-    <kbn-info info="Number format for tooltip value. For range of options see numeraljs.com"></kbn-info>
-  </label>
+<div class="kuiSideBarSection">
+  <div class="kuiSideBarSectionTitle">
+    <div class="kuiSideBarSectionTitle__text">
+      Tooltip formatting
+    </div>
+  </div>
 
-  <input type="text" ng-model="vis.params.tooltipNumberFormat" class="form-control">
+  <div class="form-group">
+    <label class="kuiSideBarFormRow__label" for="tooltipFormat">
+      Tooltip number format
+      <kbn-info info="Number format for tooltip value. For range of options see numeraljs.com"></kbn-info>
+    </label>
+    <div class="kuiSideBarFormRow__control">
+      <input id="tooltipFormat" type="text" ng-model="vis.params.tooltipNumberFormat" class="form-control">
+    </div>
+  </div>
 </div>
 
-<div class="form-group">
-  <h4>Legend</h4>
-  <label>
-    <input type="checkbox" name="showLegendControl" ng-model="vis.params.showLegend">
-    Show threshold legend
-  </label>
+<div class="kuiSideBarSection">
+  <div class="kuiSideBarSectionTitle">
+    <div class="kuiSideBarSectionTitle__text">
+      Legend
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="kuiSideBarFormRow__label" for="showThresholdLegend">
+      <input class="kuiCheckBox" id="showThresholdLegend" type="checkbox" ng-model="vis.params.showLegend">
+      Show threshold legend
+    </label>
+  </div>
 </div>
 
-<div class="form-group">
-  <h4>Sort lanes</h4>
-  <label>Order lanes alphabetically
-    <kbn-info info="Optionally displays the lanes in alphabetical order following the ordering configured for the view by aggregation"></kbn-info>
-  </label>
-  <select name="order" ng-model="vis.params.alphabetSortLaneLabels" class="form-control">
-    <option value="off">No</option>
-    <option value="asc">Ascending</option>
-    <option value="desc">Descending</option>
-  </select>
+<div class="kuiSideBarSection">
+  <div class="kuiSideBarSectionTitle">
+    <div class="kuiSideBarSectionTitle__text">
+      Sort lanes
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="kuiSideBarFormRow__label" for="orderLanes">
+      Order lanes alphabetically
+      <kbn-info info="Optionally displays the lanes in alphabetical order following the ordering configured for the view by aggregation"></kbn-info>
+    </label>
+    <div class="kuiSideBarFormRow__control">
+      <select id="orderLanes" name="orderLanes" ng-model="vis.params.alphabetSortLaneLabels" class="form-control">
+        <option value="off">No</option>
+        <option value="asc">Ascending</option>
+        <option value="desc">Descending</option>
+      </select>
+    </div>
+  </div>
 </div>
