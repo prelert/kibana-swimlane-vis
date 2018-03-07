@@ -152,14 +152,22 @@ module.controller('PrelertSwimlaneVisController', function ($scope, courier, $ti
     $scope.aggViewByOrder = aggViewByOrder;
   };
 
-  function syncViewControls() {
-    // Note for Kibana 6.0 and 6.1 there is no extra 'Interval' control
-    // inside the visualization. This is removed because of a bug
-    // with the Kibana Angular visualization type where an update event
-    // is was not correctly propagated up to visualize when calling updateState()
-    // from inside the visualization.
-    // This has been fixed in Kibana 6.2, see https://github.com/elastic/kibana/pull/15629
+  $scope.intervalChanged = function () {
+    // Sets up the visualization in response to a change in the Interval control above the swimlane.
 
+    // Set the aggregation interval of the 'timeSplit' aggregation to the selected 'interval' field.
+    const timeAgg = $scope.vis.aggs.bySchemaName.timeSplit[0];
+    timeAgg.params.interval = $scope.vis.params.interval;
+    if ($scope.vis.params.interval.val === 'custom') {
+      timeAgg.params.customInterval = $scope.vis.params.interval.customInterval;
+      timeAgg.params.interval.display = 'Custom';
+    }
+
+    // Update the state which triggers the vis to reload.
+    $scope.vis.updateState();
+  };
+
+  function syncViewControls() {
     // Synchronize the Interval control to match the aggregation run in the view,
     // e.g. if being edited via the Kibana Visualization tab sidebar.
     if ($scope.vis.aggs.length === 0 || $scope.vis.aggs.bySchemaName.timeSplit === undefined) {
