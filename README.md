@@ -50,8 +50,15 @@ and the distribution for Kibana 5 has been built for versions:
 * 5.6.4
 * 5.6.5
 * 5.6.6
+* 5.6.7
 
 ## Installation
+
+### Kibana 5.6.7:
+
+```
+bin/kibana-plugin install https://github.com/prelert/kibana-swimlane-vis/releases/download/v5.6.7/prelert_swimlane_vis-5.6.7.zip
+```
 
 ### Kibana 5.6.6:
 
