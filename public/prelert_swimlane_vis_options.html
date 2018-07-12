@@ -9,7 +9,6 @@
 
   <div class="threshold-inputs">
     <div ng-repeat="thresholdBand in vis.params.thresholdBands track by $index" class="threshold-input-container">
-      <i class="fa fa-circle" ng-style="{'color':thresholdBand.color}" aria-hidden="true"></i>
       <input type="number"
         name="threshold_input_{{$index}}"
         step="any"
@@ -20,7 +19,12 @@
         less-than="{{$index < vis.params.thresholdBands.length - 1 ? vis.params.thresholdBands[$index + 1].value : Number.MAX_VALUE}}"
         ng-required="true">
       <kbn-info info="Defines lower threshold for values >= {{thresholdBand.value}}"></kbn-info>
-      <input colorpicker ng-model="thresholdBand.color" type="text" class="form-control color-picker-field">
+      <color-picker
+        id="thresholdBandColor"
+        on-change="vis.getSetThresholdBandColor($index)"
+        color="thresholdBand.color"
+        class="form-control color-picker-field"
+      />
       <kbn-info info="Define color for band in hexadecimal format. Click field for colorpicker."></kbn-info>
       <div class="kuiFieldGroupSection threshold-delete-control">
         <button aria-label="Remove this threshold band"

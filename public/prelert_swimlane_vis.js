@@ -21,7 +21,7 @@
 import './prelert_swimlane_vis.less';
 import { CATEGORY } from 'ui/vis/vis_category';
 import { VisFactoryProvider } from 'ui/vis/vis_factory';
-import { VisSchemasProvider } from 'ui/vis/editors/default/schemas';
+import { Schemas } from 'ui/vis/editors/default/schemas';
 import { VisTypesRegistryProvider } from 'ui/registry/vis_types';
 import optionsTemplate from './prelert_swimlane_vis_options.html';
 
@@ -31,7 +31,6 @@ import template from './prelert_swimlane_vis.html';
 
 function PrelertSwimlaneProvider(Private) {
   const VisFactory = Private(VisFactoryProvider);
-  const Schemas = Private(VisSchemasProvider);
 
   return VisFactory.createAngularVisualization({
     name: 'ml_swimlane',

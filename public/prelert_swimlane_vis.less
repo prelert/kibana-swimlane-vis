@@ -86,8 +86,24 @@
       padding: 5px 10px;
     }
 
-    input[type="text"].color-picker-field {
-      width: 80px;
+    .form-control.color-picker-field {
+      vertical-align: middle;
+      display: inline-block;
+      width: 110px;
+
+      .euiColorPicker, .euiColorPicker__preview {
+        display: inline;
+      }
+
+      .euiColorPicker__swatch {
+        vertical-align: middle;
+        margin-bottom: 5px;
+      }
+
+      .euiColorPicker__label {
+        font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-size: 12px;
+      }
     }
 
     .threshold-delete-control {
@@ -107,6 +123,7 @@
   background-color: #303030;
   font-family: Roboto, Droid, Helvetica Neue, Helvetica, Arial, sans-serif;
   font-size: 12px;
+  z-index: 1000;
 
   hr {
     margin-top: 3px;

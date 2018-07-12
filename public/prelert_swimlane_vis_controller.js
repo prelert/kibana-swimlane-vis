@@ -27,7 +27,7 @@ import $ from 'ui/flot-charts';
 
 import logo from './prelert_logo_24.png';
 
-import { ResizeCheckerProvider } from 'ui/resize_checker';
+import { ResizeChecker } from 'ui/resize_checker';
 import { uiModules } from 'ui/modules';
 
 const module = uiModules.get('prelert_swimlane_vis/prelert_swimlane_vis', ['kibana']);
@@ -165,6 +165,24 @@ module.controller('PrelertSwimlaneVisController', function ($scope, courier, $ti
 
     // Update the state which triggers the vis to reload.
     $scope.vis.updateState();
+  };
+
+  $scope.setThresholdBandColor = function (index, color) {
+    // Sets the color for the threshold band in the sidebar editor.
+    $scope.vis.params.thresholdBands[index].color =  color;
+  }
+
+  $scope.vis.getSetThresholdBandColor = function (index) {
+    // The EuiColorPicker onChange prop expects a function taking a single parameter: 'value'
+    // Updating color in $scope also requires the index of the threshold band.
+    // Use bind to create a function to pass to the React EuiColorPicker.
+    // Must use a single bind and then store the function so React does not infinitely re-render.
+    if ($scope.vis.params.thresholdBands[index].setColor) {
+      return $scope.vis.params.thresholdBands[index].setColor;
+    }
+
+    $scope.vis.params.thresholdBands[index].setColor = $scope.setThresholdBandColor.bind(null, index);
+    return $scope.vis.params.thresholdBands[index].setColor;
   };
 
   function syncViewControls() {
@@ -415,7 +433,6 @@ module.controller('PrelertSwimlaneVisController', function ($scope, courier, $ti
         // Resize action is the same as that performed in the jquery.flot.resize plugin,
         // but use the Kibana ResizeCheckerProvider for simplicity and because the
         // jquery.flot.resize is not included with the flot plugins included by the Kibana metrics plugin.
-        const ResizeChecker = Private(ResizeCheckerProvider);
         scope._resizeChecker = new ResizeChecker(angular.element(element).closest('.prl-swimlane-vis'));
         scope._resizeChecker.on('resize', () => {
           const placeholder = plot.getPlaceholder();
@@ -541,7 +558,6 @@ module.controller('PrelertSwimlaneVisController', function ($scope, courier, $ti
         $('<div class="prl-swimlane-vis-tooltip">' + contents + '</div>').css({
           'position': 'absolute',
           'display': 'none',
-          'z-index': 1,
           'top': y + offset,
           'left': x + offset
         }).appendTo('body').fadeIn(200);
