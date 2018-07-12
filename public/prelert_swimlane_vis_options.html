@@ -9,6 +9,7 @@
 
   <div class="threshold-inputs">
     <div ng-repeat="thresholdBand in vis.params.thresholdBands track by $index" class="threshold-input-container">
+      <i class="fa fa-circle" ng-style="{'color':thresholdBand.color}" aria-hidden="true"></i>
       <input type="number"
         name="threshold_input_{{$index}}"
         step="any"
@@ -18,14 +19,15 @@
         greater-than="{{$index > 0 ? vis.params.thresholdBands[$index - 1].value : Number.MIN_VALUE}}"
         less-than="{{$index < vis.params.thresholdBands.length - 1 ? vis.params.thresholdBands[$index + 1].value : Number.MAX_VALUE}}"
         ng-required="true">
-      <kbn-info info="Defines lower threshold for values >= {{thresholdBand.value}}"></kbn-info>
-      <color-picker
-        id="thresholdBandColor"
-        on-change="vis.getSetThresholdBandColor($index)"
-        color="thresholdBand.color"
-        class="form-control color-picker-field"
-      />
-      <kbn-info info="Define color for band in hexadecimal format. Click field for colorpicker."></kbn-info>
+      <icon-tip
+        content="'Defines lower threshold for values >= {{thresholdBand.value}}'"
+        position="'right'"
+      ></icon-tip>
+      <input colorpicker ng-model="thresholdBand.color" type="text" class="form-control color-picker-field">
+      <icon-tip
+        content="'Define color for band in hexadecimal format. Click field for colorpicker.'"
+        position="'right'"
+      ></icon-tip>
       <div class="kuiFieldGroupSection threshold-delete-control">
         <button aria-label="Remove this threshold band"
           ng-click="vis.params.thresholdBands.splice($index, 1)"
@@ -55,7 +57,10 @@
   <div class="form-group">
     <label class="kuiSideBarFormRow__label" for="tooltipFormat">
       Tooltip number format
-      <kbn-info info="Number format for tooltip value. For range of options see numeraljs.com"></kbn-info>
+      <icon-tip
+        content="'Number format for tooltip value. For range of options see numeraljs.com'"
+        position="'right'"
+      ></icon-tip>
     </label>
     <div class="kuiSideBarFormRow__control">
       <input id="tooltipFormat" type="text" ng-model="vis.params.tooltipNumberFormat" class="form-control">
@@ -88,7 +93,10 @@
   <div class="form-group">
     <label class="kuiSideBarFormRow__label" for="orderLanes">
       Order lanes alphabetically
-      <kbn-info info="Optionally displays the lanes in alphabetical order following the ordering configured for the view by aggregation"></kbn-info>
+      <icon-tip
+        content="'Optionally displays the lanes in alphabetical order following the ordering configured for the view by aggregation'"
+        position="'right'"
+      ></icon-tip>
     </label>
     <div class="kuiSideBarFormRow__control">
       <select id="orderLanes" name="orderLanes" ng-model="vis.params.alphabetSortLaneLabels" class="form-control">

@@ -27,10 +27,13 @@ import $ from 'ui/flot-charts';
 
 import logo from './prelert_logo_24.png';
 
+import 'angular-bootstrap-colorpicker';
+import 'angular-bootstrap-colorpicker/css/colorpicker.css';
+
 import { ResizeChecker } from 'ui/resize_checker';
 import { uiModules } from 'ui/modules';
 
-const module = uiModules.get('prelert_swimlane_vis/prelert_swimlane_vis', ['kibana']);
+const module = uiModules.get('prelert_swimlane_vis/prelert_swimlane_vis', ['kibana', 'colorpicker.module']);
 module.controller('PrelertSwimlaneVisController', function ($scope, courier, $timeout) {
 
   $scope.prelertLogoSrc = logo;
@@ -165,24 +168,6 @@ module.controller('PrelertSwimlaneVisController', function ($scope, courier, $ti
 
     // Update the state which triggers the vis to reload.
     $scope.vis.updateState();
-  };
-
-  $scope.setThresholdBandColor = function (index, color) {
-    // Sets the color for the threshold band in the sidebar editor.
-    $scope.vis.params.thresholdBands[index].color =  color;
-  }
-
-  $scope.vis.getSetThresholdBandColor = function (index) {
-    // The EuiColorPicker onChange prop expects a function taking a single parameter: 'value'
-    // Updating color in $scope also requires the index of the threshold band.
-    // Use bind to create a function to pass to the React EuiColorPicker.
-    // Must use a single bind and then store the function so React does not infinitely re-render.
-    if ($scope.vis.params.thresholdBands[index].setColor) {
-      return $scope.vis.params.thresholdBands[index].setColor;
-    }
-
-    $scope.vis.params.thresholdBands[index].setColor = $scope.setThresholdBandColor.bind(null, index);
-    return $scope.vis.params.thresholdBands[index].setColor;
   };
 
   function syncViewControls() {
