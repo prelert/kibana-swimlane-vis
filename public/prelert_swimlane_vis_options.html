@@ -8,7 +8,7 @@
   <div class="text">Enter the lower threshold and color for each band:</div>
 
   <div class="threshold-inputs">
-    <div ng-repeat="thresholdBand in vis.params.thresholdBands track by $index" class="threshold-input-container">
+    <div ng-repeat="thresholdBand in editorState.params.thresholdBands track by $index" class="threshold-input-container">
       <i class="fa fa-circle" ng-style="{'color':thresholdBand.color}" aria-hidden="true"></i>
       <input type="number"
         name="threshold_input_{{$index}}"
@@ -16,8 +16,8 @@
         class="form-control threshold-value-field"
         ng-model="thresholdBand.value"
         ng-model-options="{ updateOn: 'blur' }"
-        greater-than="{{$index > 0 ? vis.params.thresholdBands[$index - 1].value : Number.MIN_VALUE}}"
-        less-than="{{$index < vis.params.thresholdBands.length - 1 ? vis.params.thresholdBands[$index + 1].value : Number.MAX_VALUE}}"
+        greater-than="{{$index > 0 ? editorState.params.thresholdBands[$index - 1].value : Number.MIN_VALUE}}"
+        less-than="{{$index < editorState.params.thresholdBands.length - 1 ? editorState.params.thresholdBands[$index + 1].value : Number.MAX_VALUE}}"
         ng-required="true">
       <icon-tip
         content="'Defines lower threshold for values >= {{thresholdBand.value}}'"
@@ -30,8 +30,8 @@
       ></icon-tip>
       <div class="kuiFieldGroupSection threshold-delete-control">
         <button aria-label="Remove this threshold band"
-          ng-click="vis.params.thresholdBands.splice($index, 1)"
-          ng-disabled="vis.params.thresholdBands.length === 1"
+          ng-click="editorState.params.thresholdBands.splice($index, 1)"
+          ng-disabled="editorState.params.thresholdBands.length === 1"
           class="kuiButton kuiButton--danger kuiButton--small"
           type="button">
           <span class="kuiIcon fa-times"></span>
@@ -41,7 +41,7 @@
   </div>
 
   <button
-    ng-click="vis.params.thresholdBands.push({ value: vis.params.thresholdBands[vis.params.thresholdBands.length - 1].value + 1, color: '#000000' })"
+    ng-click="editorState.params.thresholdBands.push({ value: editorState.params.thresholdBands[editorState.params.thresholdBands.length - 1].value + 1, color: '#000000' })"
     type="button" class="kuiButton kuiButton--primary kuiButton--fullWidth">
     <i class="fa fa-plus"></i> Add
   </button>
@@ -63,7 +63,7 @@
       ></icon-tip>
     </label>
     <div class="kuiSideBarFormRow__control">
-      <input id="tooltipFormat" type="text" ng-model="vis.params.tooltipNumberFormat" class="form-control">
+      <input id="tooltipFormat" type="text" ng-model="editorState.params.tooltipNumberFormat" class="form-control">
     </div>
   </div>
 </div>
@@ -77,7 +77,7 @@
 
   <div class="form-group">
     <label class="kuiSideBarFormRow__label" for="showThresholdLegend">
-      <input class="kuiCheckBox" id="showThresholdLegend" type="checkbox" ng-model="vis.params.showLegend">
+      <input class="kuiCheckBox" id="showThresholdLegend" type="checkbox" ng-model="editorState.params.showLegend">
       Show threshold legend
     </label>
   </div>
@@ -99,7 +99,7 @@
       ></icon-tip>
     </label>
     <div class="kuiSideBarFormRow__control">
-      <select id="orderLanes" name="orderLanes" ng-model="vis.params.alphabetSortLaneLabels" class="form-control">
+      <select id="orderLanes" name="orderLanes" ng-model="editorState.params.alphabetSortLaneLabels" class="form-control">
         <option value="off">No</option>
         <option value="asc">Ascending</option>
         <option value="desc">Descending</option>

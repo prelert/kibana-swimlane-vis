@@ -32,6 +32,7 @@ import 'angular-bootstrap-colorpicker/css/colorpicker.css';
 
 import { ResizeChecker } from 'ui/resize_checker';
 import { uiModules } from 'ui/modules';
+import { timefilter } from 'ui/timefilter';
 
 const module = uiModules.get('prelert_swimlane_vis/prelert_swimlane_vis', ['kibana', 'colorpicker.module']);
 module.controller('PrelertSwimlaneVisController', function ($scope, courier, $timeout) {
@@ -216,7 +217,7 @@ module.controller('PrelertSwimlaneVisController', function ($scope, courier, $ti
     $scope.vis.params.interval = setToInterval;
   }
 })
-  .directive('prlSwimlaneVis', function ($compile, timefilter, config, Private) {
+  .directive('prlSwimlaneVis', function (config) {
 
     function link(scope, element) {
 
@@ -487,11 +488,11 @@ module.controller('PrelertSwimlaneVisController', function ($scope, courier, $ti
           zoomFrom = zoomFrom - (aggIntervalMs / 4);
           zoomTo = zoomTo + aggIntervalMs;
 
-          timefilter.time.from = moment.utc(zoomFrom);
-          timefilter.time.to = moment.utc(zoomTo);
-          timefilter.time.mode = 'absolute';
-          timefilter.update();
-
+          timefilter.setTime({
+            from: moment.utc(zoomFrom),
+            to: moment.utc(zoomTo),
+            mode: 'absolute'
+          });
         });
 
       }
