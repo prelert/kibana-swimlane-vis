@@ -35,7 +35,7 @@ function PrelertSwimlaneProvider(Private) {
   return VisFactory.createAngularVisualization({
     name: 'ml_swimlane',
     title: 'Swimlane',
-    icon: 'fa fa-bars',
+    icon: 'list',
     description: 'Swimlane visualization displaying the behavior of a metric ' +
                   'over time across a field from the results. ' +
                   'Each lane displays a different value of the field, with the ' +
@@ -80,7 +80,10 @@ function PrelertSwimlaneProvider(Private) {
           title: 'Value',
           min: 1,
           max: 1,
-          aggFilter: [ 'count', 'avg', 'sum', 'min', 'max', 'cardinality' ]
+          aggFilter: [ 'count', 'avg', 'sum', 'min', 'max', 'cardinality' ],
+          defaults: [
+            { schema: 'metric', type: 'count' }
+          ]
         },
         {
           group: 'buckets',
@@ -90,7 +93,7 @@ function PrelertSwimlaneProvider(Private) {
           mustBeFirst: true,
           min: 0,
           max: 1,
-          aggFilter: 'terms'
+          aggFilter: ['terms']
         },
         {
           group: 'buckets',
@@ -99,7 +102,7 @@ function PrelertSwimlaneProvider(Private) {
           title: 'Time field',
           min: 1,
           max: 1,
-          aggFilter: 'date_histogram'
+          aggFilter: ['date_histogram']
         }
       ])
     }

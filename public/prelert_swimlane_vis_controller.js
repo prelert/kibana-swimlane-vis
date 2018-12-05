@@ -47,7 +47,8 @@ module.controller('PrelertSwimlaneVisController', function ($scope, courier, $ti
     }
 
     let ngHideContainer = null;
-    if (resp.hits.total !== 0) {
+
+    if (resp.rows !== undefined && resp.rows.length !== 0) {
       // Flot doesn't work too well when calling $.plot on an element that isn't visible.
       // Therefore remove ng-hide from the parent div as that sets display:none, which
       // can result in the flot chart labels falling inside the chart area on first render.
@@ -55,8 +56,8 @@ module.controller('PrelertSwimlaneVisController', function ($scope, courier, $ti
       ngHideContainer.removeClass('ng-hide');
     }
 
-    // Process the aggregations in the ES response.
-    $scope.processAggregations(resp.aggregations);
+    // Process the tabular data returned in the ES response.
+    $scope.processResponse(resp);
 
     syncViewControls();
 
@@ -100,56 +101,75 @@ module.controller('PrelertSwimlaneVisController', function ($scope, courier, $ti
     });
   }
 
-  $scope.processAggregations = function (aggregations) {
+  $scope.processResponse = function (response) {
+    // Process the tabify result in the response to the format
+    // required by the swimlane visualization.
+    const columns = response.columns;
+    const rows = response.rows;
+
     const dataByViewBy = {};
     // Keep a list of the 'view by' keys in the order that they were
     // returned by the aggregation which will be used for the lane labels.
     const aggViewByOrder = [];
 
-    if (aggregations &&
-      ($scope.vis.aggs.bySchemaName.metric !== undefined) &&
+    if (($scope.vis.aggs.bySchemaName.metric !== undefined) &&
       ($scope.vis.aggs.bySchemaName.timeSplit !== undefined)) {
-      // Retrieve the visualization aggregations.
-      const metricsAgg = $scope.vis.aggs.bySchemaName.metric[0];
+      // Retrieve the IDs for each of the columns of the visualization aggs.
       const timeAgg = $scope.vis.aggs.bySchemaName.timeSplit[0];
       const timeAggId = timeAgg.id;
+      const timeColumn = _.find(columns, (column) => {
+        return column.aggConfig.id === timeAggId;
+      });
 
-      if ($scope.vis.aggs.bySchemaName.viewBy !== undefined) {
-        // Get the buckets of the viewBy aggregation.
-        const viewByAgg = $scope.vis.aggs.bySchemaName.viewBy[0];
-        const viewByBuckets = aggregations[viewByAgg.id].buckets;
-        _.each(viewByBuckets, (bucket) => {
-          // There will be 1 bucket for each 'view by' value.
-          const viewByValue = bucket.key.toString();
+      const metricsAgg = $scope.vis.aggs.bySchemaName.metric[0];
+      const metricsAggId = metricsAgg.id;
+      const metricColumn = _.find(columns, (column) => {
+        return column.aggConfig.id === metricsAggId;
+      });
 
-          // Store 'view by' values as Strings in aggViewByOrder array
-          // to match keys in dataByViewBy Object.
-          aggViewByOrder.push(viewByValue);
-          const timesForViewBy = {};
-          dataByViewBy[viewByValue] = timesForViewBy;
+      if (timeColumn !== undefined && metricColumn !== undefined) {
+        const timeColumnId = timeColumn.id;
+        const metricColumnId = metricColumn.id;
 
-          const bucketsForViewByValue = bucket[timeAggId].buckets;
-          _.each(bucketsForViewByValue, (valueBucket) => {
-            // time is the 'valueBucket' key.
-            timesForViewBy[valueBucket.key] = {
-              value: metricsAgg.getValue(valueBucket)
-            };
+        if ($scope.vis.aggs.bySchemaName.viewBy !== undefined) {
+          const viewByAgg = $scope.vis.aggs.bySchemaName.viewBy[0];
+          const viewByAggId = viewByAgg.id;
+
+          const viewByColumn = _.find(columns, (column) => {
+            return column.aggConfig.id === viewByAggId;
           });
-        });
-      } else {
-        // No 'View by' selected - compile data for a single swimlane
-        // showing the time bucketed metric value.
-        const timesForViewBy = {};
-        const buckets = aggregations[timeAggId].buckets;
-        _.each(buckets, (bucket) => {
-          timesForViewBy[bucket.key] = { value: metricsAgg.getValue(bucket) };
-        });
+          const viewByColumnId = viewByColumn.id;
 
-        // Use the metric label as the swimlane label.
-        dataByViewBy[metricsAgg.makeLabel()] = timesForViewBy;
-        aggViewByOrder.push(metricsAgg.makeLabel());
+          rows.forEach((row) => {
+            const viewByValue = row[viewByColumnId];
+            const time = row[timeColumnId];
+            const value = row[metricColumnId];
+
+            const viewByData = dataByViewBy[viewByValue];
+            if (viewByData === undefined) {
+              dataByViewBy[viewByValue] = {};
+
+              // Store 'view by' values as Strings in aggViewByOrder array
+              // to match keys in dataByViewBy Object.
+              aggViewByOrder.push(viewByValue);
+            }
+            const timesForViewBy = dataByViewBy[viewByValue];
+            timesForViewBy[time] = { value };
+          });
+        } else {
+          // No 'View by' selected - compile data for a single swimlane
+          // showing the time bucketed metric value.
+          const timesForViewBy = {};
+          rows.forEach((row) => {
+            timesForViewBy[row[timeColumnId]] = { value: row[metricColumnId] };
+          });
+
+          // Use the metric label as the swimlane label.
+          dataByViewBy[metricsAgg.makeLabel()] = timesForViewBy;
+          aggViewByOrder.push(metricsAgg.makeLabel());
+        }
+
       }
-
     }
 
     $scope.metricsData = dataByViewBy;
@@ -178,7 +198,7 @@ module.controller('PrelertSwimlaneVisController', function ($scope, courier, $ti
       return;
     }
 
-    // Retrieve the visualization aggregations.
+    // Retrieve the visualization aggs.
     const timeAgg = $scope.vis.aggs.bySchemaName.timeSplit[0];
 
     // Update the scope 'interval' field.
