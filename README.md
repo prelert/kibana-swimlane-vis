@@ -33,6 +33,7 @@ Kibana enforces that installed plugins match the version of Kibana itself, so di
 swimlane plugin are available for each new Kibana release.
 
 The distribution for Kibana 6 has been built for versions:
+* 6.4.3
 * 6.4.2
 * 6.4.1
 * 6.4.0
