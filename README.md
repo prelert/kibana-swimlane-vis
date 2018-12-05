@@ -81,6 +81,12 @@ For Kibana 4 a single release was available and tested with versions 4.3, 4.4, 4
 
 
 ## Installation
+### Kibana 6.4.3:
+
+```
+bin/kibana-plugin install https://github.com/prelert/kibana-swimlane-vis/releases/download/v6.4.3/prelert_swimlane_vis-6.4.3.zip
+```
+
 ### Kibana 6.4.2:
 
 ```
