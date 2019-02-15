@@ -19,7 +19,6 @@
  */
 
 import './prelert_swimlane_vis.less';
-import { CATEGORY } from 'ui/vis/vis_category';
 import { VisFactoryProvider } from 'ui/vis/vis_factory';
 import { Schemas } from 'ui/vis/editors/default/schemas';
 import { VisTypesRegistryProvider } from 'ui/registry/vis_types';
@@ -42,7 +41,6 @@ function PrelertSwimlaneProvider(Private) {
                   'relative size of the metric over each interval indicated ' +
                   'by the color of the symbol at that time. ' +
                   'Created by Prelert.',
-    category: CATEGORY.OTHER,
     visConfig: {
       defaults: {
         interval: { display: 'Auto', val: 'auto' },
