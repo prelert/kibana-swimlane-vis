@@ -1,6 +1,6 @@
 # Swimlane visualization for Kibana
 
-A swimlane visualization for Kibana, with builds available for both Kibana 6.x, 5.x and 4.x.
+A swimlane visualization for Kibana, with builds available for Kibana 7.x, 6.x, 5.x and 4.x.
 
 The visualization displays the behavior of a metric value over time across a field from the results.
 Each lane displays a different value of the selected field, with the relative size of the metric
@@ -31,6 +31,9 @@ response times:
 
 Kibana enforces that installed plugins match the version of Kibana itself, so different releases of the
 swimlane plugin are available for each new Kibana release.
+
+The distribution for Kibana 7 has been built for versions:
+* 7.0.0
 
 The distribution for Kibana 6 has been built for versions:
 * 6.8.1
@@ -95,6 +98,12 @@ For Kibana 4 a single release was available and tested with versions 4.3, 4.4, 4
 
 
 ## Installation
+### Kibana 7.0.0:
+
+```
+bin/kibana-plugin install https://github.com/prelert/kibana-swimlane-vis/releases/download/v7.0.0/prelert_swimlane_vis-7.0.0.zip
+```
+
 ### Kibana 6.8.1:
 
 ```
@@ -442,7 +451,7 @@ bin/kibana plugin -i prelert_swimlane_vis -u https://github.com/prelert/kibana-s
 
 ## Uninstall
 
-### Kibana 6.x and 5.x:
+### Kibana 7.x, 6.x and 5.x:
 
 ```
 bin/kibana-plugin remove prelert_swimlane_vis
