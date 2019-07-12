@@ -1,8 +1,6 @@
-<div class="kuiSideBarSection">
-  <div class="kuiSideBarSectionTitle">
-    <div class="euiText kuiSideBarSectionTitle__text">
-      <h3>Band thresholds</h3>
-    </div>
+<div class="visEditorSidebar__section">
+  <div class="visEditorSidebar__sectionTitle">
+    Band thresholds
   </div>
 
   <div class="euiText euiText--small">Enter the lower threshold and color for each band:</div>
@@ -42,29 +40,30 @@
 
   <button
     ng-click="editorState.params.thresholdBands.push({ value: editorState.params.thresholdBands[editorState.params.thresholdBands.length - 1].value + 1, color: '#000000' })"
-    type="button" class="kuiButton kuiButton--primary kuiButton--fullWidth">
-    <i class="fa fa-plus"></i> Add
+    type="button"
+    class="euiButton euiButton--primary euiButton--fullWidth">
+    <span class="euiButton__content">
+        <i class="fa fa-plus"></i><span class="euiButton__text">Add</span>
+    </span>
   </button>
 </div>
 
 <div class="euiSpacer euiSpacer--m"></div>
 
-<div class="kuiSideBarSection">
-  <div class="kuiSideBarSectionTitle">
-    <div class="euiText kuiSideBarSectionTitle__text">
-      <h3>Tooltip formatting</h3>
-    </div>
+<div class="visEditorSidebar__section">
+  <div class="visEditorSidebar__sectionTitle">
+    <div>Tooltip formatting</div>
   </div>
 
-  <div class="form-group">
-    <label class="kuiSideBarFormRow__label euiText euiText--small" for="tooltipFormat">
+  <div class="visEditorSidebar__formRow">
+    <label class="visEditorSidebar__formLabel" for="tooltipFormat">
       Tooltip number format
       <icon-tip
         content="'Number format for tooltip value. For range of options see numeraljs.com'"
         position="'right'"
       ></icon-tip>
     </label>
-    <div class="kuiSideBarFormRow__control">
+    <div class="visEditorSidebar__formControl">
       <input id="tooltipFormat" type="text" ng-model="editorState.params.tooltipNumberFormat" class="form-control">
     </div>
   </div>
@@ -72,39 +71,37 @@
 
 <div class="euiSpacer euiSpacer--m"></div>
 
-<div class="kuiSideBarSection">
-  <div class="kuiSideBarSectionTitle">
-    <div class="euiText kuiSideBarSectionTitle__text">
-      <h3>Legend</h3>
-    </div>
+<div class="visEditorSidebar__section">
+  <div class="visEditorSidebar__sectionTitle">
+    Legend
   </div>
 
-  <div class="form-group">
-    <label class="kuiSideBarFormRow__label euiText euiText--small" for="showThresholdLegend">
-      <input class="kuiCheckBox" id="showThresholdLegend" type="checkbox" ng-model="editorState.params.showLegend">
-      Show threshold legend
+  <div class="visEditorSidebar__formRow">
+    <label class="visEditorSidebar__formLabel" for="showThresholdLegend">
+        Show threshold legend
     </label>
+    <div class="visEditorSidebar__formControl">
+      <input class="kuiCheckBox" id="showThresholdLegend" type="checkbox" ng-model="editorState.params.showLegend">
+    </div>
   </div>
 </div>
 
 <div class="euiSpacer euiSpacer--m"></div>
 
-<div class="kuiSideBarSection">
-  <div class="kuiSideBarSectionTitle">
-    <div class="euiText kuiSideBarSectionTitle__text">
-      <h3>Sort lanes</h3>
-    </div>
+<div class="visEditorSidebar__section">
+  <div class="visEditorSidebar__sectionTitle">
+    Sort lanes
   </div>
 
-  <div class="form-group">
-    <label class="kuiSideBarFormRow__label euiText euiText--small" for="orderLanes">
+  <div class="visEditorSidebar__formRow">
+    <label class="visEditorSidebar__formLabel" for="orderLanes">
       Order lanes alphabetically
       <icon-tip
         content="'Optionally displays the lanes in alphabetical order following the ordering configured for the view by aggregation'"
         position="'right'"
       ></icon-tip>
     </label>
-    <div class="kuiSideBarFormRow__control">
+    <div class="visEditorSidebar__formControl">
       <select id="orderLanes" name="orderLanes" ng-model="editorState.params.alphabetSortLaneLabels" class="form-control">
         <option value="off">No</option>
         <option value="asc">Ascending</option>
