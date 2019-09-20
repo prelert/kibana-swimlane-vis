@@ -4,7 +4,7 @@
       <label class="small">Interval:</label>
       <select class="form-control"
         ng-model="vis.params.interval"
-        ng-options="interval as interval.display for interval in vis.type.visConfig.intervalOptions track by interval.display"
+        ng-options="interval as interval.display for interval in vis.type.visConfig.intervalOptions track by interval.val"
         ng-change="intervalChanged()">
       </select>
       <icon-tip

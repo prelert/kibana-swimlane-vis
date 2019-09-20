@@ -59,13 +59,12 @@ function PrelertSwimlaneProvider(Private) {
       template,
       intervalOptions: [
         { display: 'Auto', val: 'auto' },
-        { display: '5 minutes', val: 'custom', customInterval: '5m' },
-        { display: '10 minutes', val: 'custom', customInterval: '10m' },
-        { display: '30 minutes', val: 'custom', customInterval: '30m' },
-        { display: '1 hour', val: 'h' },
-        { display: '3 hours', val: 'custom', customInterval: '3h' },
-        { display: '12 hours', val: 'custom', customInterval: '12h' },
-        { display: '1 day', val: 'd' }]
+        { display: 'Millisecond', val: 'ms' },
+        { display: 'Second', val: 's' },
+        { display: 'Minute', val: 'm' },
+        { display: 'Hourly', val: 'h' },
+        { display: 'Daily', val: 'd' },
+        { display: 'Weekly', val: 'w' }]
     },
     responseHandler: 'none',
     editorConfig: {

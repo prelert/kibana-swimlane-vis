@@ -116,16 +116,11 @@ module.controller('PrelertSwimlaneVisController', function ($scope, courier, $ti
       ($scope.vis.aggs.bySchemaName.timeSplit !== undefined)) {
       // Retrieve the IDs for each of the columns of the visualization aggs.
       const timeAgg = $scope.vis.aggs.bySchemaName.timeSplit[0];
-      const timeAggId = timeAgg.id;
-      const timeColumn = _.find(columns, (column) => {
-        return column.aggConfig.id === timeAggId;
-      });
+      const timeColumn = getColumnForAggId(columns, timeAgg.id);
 
       const metricsAgg = $scope.vis.aggs.bySchemaName.metric[0];
       const metricsAggId = metricsAgg.id;
-      const metricColumn = _.find(columns, (column) => {
-        return column.aggConfig.id === metricsAggId;
-      });
+      const metricColumn = getColumnForAggId(columns, metricsAggId);
 
       if (timeColumn !== undefined && metricColumn !== undefined) {
         const timeColumnId = timeColumn.id;
@@ -133,11 +128,7 @@ module.controller('PrelertSwimlaneVisController', function ($scope, courier, $ti
 
         if ($scope.vis.aggs.bySchemaName.viewBy !== undefined) {
           const viewByAgg = $scope.vis.aggs.bySchemaName.viewBy[0];
-          const viewByAggId = viewByAgg.id;
-
-          const viewByColumn = _.find(columns, (column) => {
-            return column.aggConfig.id === viewByAggId;
-          });
+          const viewByColumn = getColumnForAggId(columns, viewByAgg.id);
           const viewByColumnId = viewByColumn.id;
 
           rows.forEach((row) => {
@@ -181,15 +172,18 @@ module.controller('PrelertSwimlaneVisController', function ($scope, courier, $ti
 
     // Set the aggregation interval of the 'timeSplit' aggregation to the selected 'interval' field.
     const timeAgg = $scope.vis.aggs.bySchemaName.timeSplit[0];
-    timeAgg.params.interval = $scope.vis.params.interval;
-    if ($scope.vis.params.interval.val === 'custom') {
-      timeAgg.params.customInterval = $scope.vis.params.interval.customInterval;
-      timeAgg.params.interval.display = 'Custom';
-    }
+    timeAgg.params.interval = $scope.vis.params.interval.val;
 
     // Update the state which triggers the vis to reload.
     $scope.vis.updateState();
   };
+
+  function getColumnForAggId (cols, aggId) {
+    // Helper function to obtain the column from the results which matches the aggregation with the specified ID.
+    // For example the column with {id: "col-0-2", name: "airline: Descending"} is the first (0) column from the
+    // result set which will match the aggregation with ID 2.
+    return cols.find(c => c.id.split('-')[2] === aggId);
+  }
 
   function syncViewControls() {
     // Synchronize the Interval control to match the aggregation run in the view,
@@ -202,27 +196,19 @@ module.controller('PrelertSwimlaneVisController', function ($scope, courier, $ti
     const timeAgg = $scope.vis.aggs.bySchemaName.timeSplit[0];
 
     // Update the scope 'interval' field.
-    let aggInterval = _.get(timeAgg, ['params', 'interval', 'val']);
+    let aggInterval = _.get(timeAgg, ['params', 'interval']);
+
     if (aggInterval === 'custom') {
       aggInterval = _.get(timeAgg, ['params', 'customInterval']);
     }
 
     let setToInterval = _.find($scope.vis.type.visConfig.intervalOptions, { val: aggInterval });
-    if (!setToInterval) {
-      setToInterval = _.find($scope.vis.type.visConfig.intervalOptions, { customInterval: aggInterval });
-    }
-    if (!setToInterval) {
-      // e.g. if running inside the Kibana Visualization tab will need to add an extra option in.
-      setToInterval = {};
-
-      if (_.get(timeAgg, ['params', 'interval', 'val']) !== 'custom') {
-        setToInterval.val = _.get(timeAgg, ['params', 'interval', 'val']);
-        setToInterval.display = 'Custom: ' + _.get(timeAgg, ['params', 'interval', 'val']);
-      } else {
-        setToInterval.val = 'custom';
-        setToInterval.customInterval = _.get(timeAgg, ['params', 'customInterval']);
-        setToInterval.display = 'Custom: ' + _.get(timeAgg, ['params', 'customInterval']);
-      }
+    if (setToInterval === undefined) {
+      // e.g. if running inside the Kibana Visualize, need to add an extra option in.
+      setToInterval = {
+        display: `${aggInterval}`,
+        val: aggInterval,
+      };
 
       $scope.vis.type.visConfig.intervalOptions.push(setToInterval);
     }

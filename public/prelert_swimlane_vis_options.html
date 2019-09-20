@@ -6,7 +6,7 @@
   <div class="euiText euiText--small">Enter the lower threshold and color for each band:</div>
 
   <div class="threshold-inputs">
-    <div ng-repeat="thresholdBand in editorState.params.thresholdBands track by $index" class="threshold-input-container">
+    <div ng-repeat="thresholdBand in editorState.params.thresholdBands track by $index" class="threshold-input-container visEditorSidebar__formRow">
       <i class="fa fa-circle" ng-style="{'color':thresholdBand.color}" aria-hidden="true"></i>
       <input type="number"
         name="threshold_input_{{$index}}"
