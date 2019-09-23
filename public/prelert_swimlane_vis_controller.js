@@ -35,7 +35,7 @@ import { uiModules } from 'ui/modules';
 import { timefilter } from 'ui/timefilter';
 
 const module = uiModules.get('prelert_swimlane_vis/prelert_swimlane_vis', ['kibana', 'colorpicker.module']);
-module.controller('PrelertSwimlaneVisController', function ($scope, courier, $timeout) {
+module.controller('PrelertSwimlaneVisController', function ($scope, $timeout) {
 
   $scope.prelertLogoSrc = logo;
 
@@ -178,7 +178,7 @@ module.controller('PrelertSwimlaneVisController', function ($scope, courier, $ti
     $scope.vis.updateState();
   };
 
-  function getColumnForAggId (cols, aggId) {
+  function getColumnForAggId(cols, aggId) {
     // Helper function to obtain the column from the results which matches the aggregation with the specified ID.
     // For example the column with {id: "col-0-2", name: "airline: Descending"} is the first (0) column from the
     // result set which will match the aggregation with ID 2.
@@ -320,7 +320,7 @@ module.controller('PrelertSwimlaneVisController', function ($scope, courier, $ti
 
         // Extract the bounds of the time filter so we can set the x-axis min and max.
         // If no min/max supplied, Flot will automatically set them according to the data values.
-        const bounds = timefilter.getActiveBounds();
+        const bounds = timefilter.getBounds();
         let earliest = null;
         let latest = null;
         if (bounds) {
