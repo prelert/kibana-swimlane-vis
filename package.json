@@ -1,11 +1,11 @@
 {
   "name": "prelert_swimlane_vis",
-  "version": "7.1.1",
+  "version": "7.2.0",
   "description": "Prelert swimlane visualization plugin",
   "license": "Apache-2.0",
   "main": "index.js",
   "kibana": {
-    "version": "7.1.1"
+    "version": "7.2.0"
   },
   "scripts": {
     "preinstall": "node ../../kibana/preinstall_check",
