@@ -9,7 +9,7 @@
       </select>
       <icon-tip
         ng-show="vis.params.interval.scaled"
-        content="'This interval creates {{ vis.params.interval.scale > 1 ? 'buckets that are too large' : 'too many buckets' }} to show in the selected time range, so it has been scaled to {{ vis.params.interval.description }}'"
+        content="'This interval creates {{ vis.params.interval.scale > 1 ? 'buckets that are too large' : 'too many buckets' }} to show in the selected time range, so it has been scaled {{ vis.params.interval.scale > 1 ? 'down' : 'up' }}'"
         position="'bottom'"
         class="text-warning"
     ></icon-tip>
