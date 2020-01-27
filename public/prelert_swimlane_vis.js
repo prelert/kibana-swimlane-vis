@@ -1,7 +1,7 @@
 /*
  ****************************************************************************
  *                                                                          *
- * Copyright 2012-2018 Elasticsearch BV                                     *
+ * Copyright 2012-2020 Elasticsearch BV                                     *
  *                                                                          *
  * Licensed under the Apache License, Version 2.0 (the "License");          *
  * you may not use this file except in compliance with the License.         *
@@ -19,28 +19,28 @@
  */
 
 import './prelert_swimlane_vis.less';
-import { VisFactoryProvider } from 'ui/vis/vis_factory';
+import { visualizations } from '../../../src/legacy/core_plugins/visualizations/public';
+
+import { visFactory } from 'ui/vis/vis_factory';
+import { AngularVisController } from 'ui/vis/vis_types/angular_vis_type';
 import { Schemas } from 'ui/vis/editors/default/schemas';
-import { VisTypesRegistryProvider } from 'ui/registry/vis_types';
 import optionsTemplate from './prelert_swimlane_vis_options.html';
 
 import './prelert_swimlane_vis_controller';
 import template from './prelert_swimlane_vis.html';
 
-
-function PrelertSwimlaneProvider(Private) {
-  const VisFactory = Private(VisFactoryProvider);
-
-  return VisFactory.createAngularVisualization({
+function PrelertSwimlaneProvider() {
+  return visFactory.createBaseVisualization({
     name: 'ml_swimlane',
     title: 'Swimlane',
     icon: 'list',
-    description: 'Swimlane visualization displaying the behavior of a metric ' +
-                  'over time across a field from the results. ' +
-                  'Each lane displays a different value of the field, with the ' +
-                  'relative size of the metric over each interval indicated ' +
-                  'by the color of the symbol at that time. ' +
-                  'Created by Prelert.',
+    description:
+      'Swimlane visualization displaying the behavior of a metric ' +
+      'over time across a field from the results. ' +
+      'Each lane displays a different value of the field, with the ' +
+      'relative size of the metric over each interval indicated ' +
+      'by the color of the symbol at that time. ' +
+      'Created by Prelert.',
     visConfig: {
       defaults: {
         interval: { display: 'Auto', val: 'auto' },
@@ -49,12 +49,12 @@ function PrelertSwimlaneProvider(Private) {
           { value: 3, color: '#8bc8fb' },
           { value: 25, color: '#ffdd00' },
           { value: 50, color: '#ff7e00' },
-          { value: 75, color: '#fe5050' }
+          { value: 75, color: '#fe5050' },
         ],
         unknownThresholdColor: '#e6e6e6',
         tooltipNumberFormat: '0.0',
         showLegend: true,
-        alphabetSortLaneLabels: 'off'
+        alphabetSortLaneLabels: 'off',
       },
       template,
       intervalOptions: [
@@ -64,9 +64,11 @@ function PrelertSwimlaneProvider(Private) {
         { display: 'Minute', val: 'm' },
         { display: 'Hourly', val: 'h' },
         { display: 'Daily', val: 'd' },
-        { display: 'Weekly', val: 'w' }]
+        { display: 'Weekly', val: 'w' },
+      ],
     },
     responseHandler: 'none',
+    visualization: AngularVisController,
     editorConfig: {
       collections: {},
       optionsTemplate,
@@ -77,10 +79,8 @@ function PrelertSwimlaneProvider(Private) {
           title: 'Value',
           min: 1,
           max: 1,
-          aggFilter: [ 'count', 'avg', 'sum', 'min', 'max', 'cardinality' ],
-          defaults: [
-            { schema: 'metric', type: 'count' }
-          ]
+          aggFilter: ['count', 'avg', 'sum', 'min', 'max', 'cardinality'],
+          defaults: [{ schema: 'metric', type: 'count' }],
         },
         {
           group: 'buckets',
@@ -90,7 +90,7 @@ function PrelertSwimlaneProvider(Private) {
           mustBeFirst: true,
           min: 0,
           max: 1,
-          aggFilter: ['terms']
+          aggFilter: ['terms'],
         },
         {
           group: 'buckets',
@@ -99,15 +99,15 @@ function PrelertSwimlaneProvider(Private) {
           title: 'Time field',
           min: 1,
           max: 1,
-          aggFilter: ['date_histogram']
-        }
-      ])
-    }
+          aggFilter: ['date_histogram'],
+        },
+      ]),
+    },
   });
 }
 
 // register the provider with the visTypes registry
-VisTypesRegistryProvider.register(PrelertSwimlaneProvider);
+visualizations.types.registerVisualization(PrelertSwimlaneProvider);
 
 // export the provider so that the visType can be required with Private()
 export default PrelertSwimlaneProvider;

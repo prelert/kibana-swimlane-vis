@@ -1,7 +1,7 @@
 /*
  ****************************************************************************
  *                                                                          *
- * Copyright 2012-2018 Elasticsearch BV                                     *
+ * Copyright 2012-2020 Elasticsearch BV                                     *
  *                                                                          *
  * Licensed under the Apache License, Version 2.0 (the "License");          *
  * you may not use this file except in compliance with the License.         *
@@ -18,12 +18,10 @@
  ****************************************************************************
  */
 
-export default function (kibana) {
+export default function(kibana) {
   return new kibana.Plugin({
     uiExports: {
-      visTypes: [
-        'plugins/prelert_swimlane_vis/prelert_swimlane_vis'
-      ]
-    }
+      visTypes: ['plugins/prelert_swimlane_vis/prelert_swimlane_vis'],
+    },
   });
 }
