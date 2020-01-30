@@ -26,89 +26,98 @@ response times:
 - [Issues](#issues)
 - [About Prelert](#about-prelert)
 
-
 ## Compatibility
 
 Kibana enforces that installed plugins match the version of Kibana itself, so different releases of the
 swimlane plugin are available for each new Kibana release.
 
 The distribution for Kibana 7 has been built for versions:
-* 7.4.2
-* 7.4.1
-* 7.4.0
-* 7.3.2
-* 7.3.1
-* 7.3.0
-* 7.2.1
-* 7.2.0
-* 7.1.1
-* 7.1.0
-* 7.0.1
-* 7.0.0
+
+- 7.5.0
+- 7.4.2
+- 7.4.1
+- 7.4.0
+- 7.3.2
+- 7.3.1
+- 7.3.0
+- 7.2.1
+- 7.2.0
+- 7.1.1
+- 7.1.0
+- 7.0.1
+- 7.0.0
 
 The distribution for Kibana 6 has been built for versions:
-* 6.8.1
-* 6.8.0
-* 6.7.2
-* 6.7.1
-* 6.7.0
-* 6.6.2
-* 6.6.1
-* 6.6.0
-* 6.5.4
-* 6.5.3
-* 6.5.2
-* 6.5.1
-* 6.5.0
-* 6.4.3
-* 6.4.2
-* 6.4.1
-* 6.4.0
-* 6.3.2
-* 6.3.1
-* 6.3.0
-* 6.2.4
-* 6.2.3
-* 6.2.2
-* 6.2.1
-* 6.2.0
-* 6.1.3
-* 6.1.2
-* 6.1.1
-* 6.1.0
-* 6.0.1
-* 6.0.0
+
+- 6.8.1
+- 6.8.0
+- 6.7.2
+- 6.7.1
+- 6.7.0
+- 6.6.2
+- 6.6.1
+- 6.6.0
+- 6.5.4
+- 6.5.3
+- 6.5.2
+- 6.5.1
+- 6.5.0
+- 6.4.3
+- 6.4.2
+- 6.4.1
+- 6.4.0
+- 6.3.2
+- 6.3.1
+- 6.3.0
+- 6.2.4
+- 6.2.3
+- 6.2.2
+- 6.2.1
+- 6.2.0
+- 6.1.3
+- 6.1.2
+- 6.1.1
+- 6.1.0
+- 6.0.1
+- 6.0.0
 
 The distribution for Kibana 5 has been built for versions:
-* 5.6.6
-* 5.6.5
-* 5.6.4
-* 5.6.3
-* 5.6.2
-* 5.6.1
-* 5.6.0
-* 5.5.3
-* 5.5.2
-* 5.5.1
-* 5.5.0
-* 5.4.3
-* 5.4.2
-* 5.4.1
-* 5.4.0
-* 5.3.2
-* 5.3.1
-* 5.3.0
-* 5.2.2
-* 5.1.2
-* 5.1.1
-* 5.0.2
-* 5.0.1
-* 5.0.0
+
+- 5.6.6
+- 5.6.5
+- 5.6.4
+- 5.6.3
+- 5.6.2
+- 5.6.1
+- 5.6.0
+- 5.5.3
+- 5.5.2
+- 5.5.1
+- 5.5.0
+- 5.4.3
+- 5.4.2
+- 5.4.1
+- 5.4.0
+- 5.3.2
+- 5.3.1
+- 5.3.0
+- 5.2.2
+- 5.1.2
+- 5.1.1
+- 5.0.2
+- 5.0.1
+- 5.0.0
 
 For Kibana 4 a single release was available and tested with versions 4.3, 4.4, 4.5 and 4.6
 
-
 ## Installation
+
+### Kibana 7.5.0:
+
+```
+bin/kibana-plugin install https://github.com/prelert/kibana-swimlane-vis/releases/download/v7.5.0/prelert_swimlane_vis-7.5.0.zip
+```
+
 ### Kibana 7.4.2:
 
 ```
@@ -525,7 +534,6 @@ Windows:
 bin/kibana plugin -i prelert_swimlane_vis -u https://github.com/prelert/kibana-swimlane-vis/archive/v0.1.0.zip
 ```
 
-
 ## Uninstall
 
 ### Kibana 7.x, 6.x and 5.x:
@@ -545,20 +553,20 @@ example we are plotting average response time, with the numeric value stored in 
 ![image](resources/step1.png)
 
 The next step is to configure the field by which you want the results to be split to form the swimlanes using
-an Elasticsearch terms aggregation. Select the field for the *View by* bucket aggregation, which will typically be
-one of the *string* type fields in your results. Use the *Size* dropdown to select the maximum number of swimlanes
+an Elasticsearch terms aggregation. Select the field for the _View by_ bucket aggregation, which will typically be
+one of the _string_ type fields in your results. Use the _Size_ dropdown to select the maximum number of swimlanes
 that will be displayed. In our example, we will be viewing results by `airline`, showing the top 15 airlines by
 average response time:
 
 ![image](resources/step2.png)
 
-Note if no *View by* buckets are configured, a single swimlane will be displayed showing the behavior of the
+Note if no _View by_ buckets are configured, a single swimlane will be displayed showing the behavior of the
 selected metric over all results.
 
 The final step is to select the time field in your results. The time frame for the intervals in the swimlane
 visualization can be specified in terms of seconds, minutes, hours, days, weeks, months, or years, or just
-leave it to the *Auto* setting of Kibana which will aim to pick the optimum interval depending on the time
-span of the query. An *interval* dropdown control is also available at the top of the swimlane for use when
+leave it to the _Auto_ setting of Kibana which will aim to pick the optimum interval depending on the time
+span of the query. An _interval_ dropdown control is also available at the top of the swimlane for use when
 the visualization has been saved and added to a dashboard (this control was not available for 6.0 and 6.1 releases
 due to an [issue](https://github.com/elastic/kibana/pull/15629) with the Kibana Angular
 visualization type).
@@ -579,16 +587,16 @@ The swimlane uses different colors to indicate the value of the metric over a ti
 five threshold bands are set for a 0 to 100 range of values, with light blue used for the smallest value,
 through to red for the largest value, and the ranges set to:
 
-| Range            | Color         |
-| -----------------|---------------|
-| 0 <= value < 3   | light blue    |
-| 3 <= value < 25  | blue          |
-| 25 <= value < 50 | yellow        |
-| 50 <= value < 75 | orange        |
-| 75 <= value      | red           |
+| Range            | Color      |
+| ---------------- | ---------- |
+| 0 <= value < 3   | light blue |
+| 3 <= value < 25  | blue       |
+| 25 <= value < 50 | yellow     |
+| 50 <= value < 75 | orange     |
+| 75 <= value      | red        |
 
-To alter the numeric ranges for any of the bands, use the *Band thresholds* section of the Options tab to
-enter the desired value, noting that the values entered define the *lower* threshold for each band. For example,
+To alter the numeric ranges for any of the bands, use the _Band thresholds_ section of the Options tab to
+enter the desired value, noting that the values entered define the _lower_ threshold for each band. For example,
 in the screenshot above, the thresholds have been adjusted to suit the range of response times from the flight
 comparison website data, with values of 3000 or more displayed in red.
 
@@ -598,30 +606,29 @@ entering hexidecimal color values.
 The number of color bands can also be altered, using the Add or Delete buttons.
 
 By default a legend will be displayed above the swimlane showing the configured lower band threshold values
-for each of the colors. This legend can be hidden by deselecting the *Show threshold legend* checkbox in the
+for each of the colors. This legend can be hidden by deselecting the _Show threshold legend_ checkbox in the
 Options tab.
 
 ### Tooltip formatting
 
 By default, the value shown in the tooltip when hovering over a band in the swimlane is shown to one decimal
 place. To alter the format of the tooltip to suit values in your data set, enter the desired format in the
-*Tooltip formatting* section of the Options tab. Refer to the [Numeral.js](http://numeraljs.com/) documentation
+_Tooltip formatting_ section of the Options tab. Refer to the [Numeral.js](http://numeraljs.com/) documentation
 for the range of accepted formats, with that being the library used to format the value in the tooltip.
 
 The date and time shown in the tooltip is displayed in the format that Kibana uses for displaying pretty-formatted
-dates. This `dateFormat` option can be configured in the *Advanced Settings* page under the Kibana Management
+dates. This `dateFormat` option can be configured in the _Advanced Settings_ page under the Kibana Management
 application.
 
 ### Lane sorting
 
-By default the lanes will be displayed in the order returned by the configured *View by* bucket aggregation. To
-perform a secondary alphabetical sort to the lane order, select *Ascending* or *Descending* as desired from the
-*Order lanes alphabetically* dropdown control.
-
+By default the lanes will be displayed in the order returned by the configured _View by_ bucket aggregation. To
+perform a secondary alphabetical sort to the lane order, select _Ascending_ or _Descending_ as desired from the
+_Order lanes alphabetically_ dropdown control.
 
 ## Issues
-Please file issues [here](https://github.com/prelert/kibana-swimlane-vis/issues).
 
+Please file issues [here](https://github.com/prelert/kibana-swimlane-vis/issues).
 
 ## About Prelert
 
