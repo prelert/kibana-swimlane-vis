@@ -30,7 +30,7 @@ import logo from './prelert_logo_24.png';
 import 'angular-bootstrap-colorpicker';
 import 'angular-bootstrap-colorpicker/css/colorpicker.css';
 
-import { ResizeChecker } from 'ui/resize_checker';
+import { ResizeChecker } from '../../../src/plugins/kibana_utils/public';
 import { uiModules } from 'ui/modules';
 import { timefilter } from 'ui/timefilter';
 
@@ -448,7 +448,7 @@ module
         // but use the Kibana ResizeCheckerProvider for simplicity and because the
         // jquery.flot.resize is not included with the flot plugins included by the Kibana metrics plugin.
         scope._resizeChecker = new ResizeChecker(
-          angular.element(element).closest('.prl-swimlane-vis')
+          angular.element(element).closest('.prl-swimlane-vis')[0]
         );
         scope._resizeChecker.on('resize', () => {
           const placeholder = plot.getPlaceholder();
