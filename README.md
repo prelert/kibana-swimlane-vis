@@ -33,6 +33,7 @@ swimlane plugin are available for each new Kibana release.
 
 The distribution for Kibana 7 has been built for versions:
 
+- 7.6.2
 - 7.6.1
 - 7.6.0
 - 7.5.2
@@ -115,6 +116,12 @@ The distribution for Kibana 5 has been built for versions:
 For Kibana 4 a single release was available and tested with versions 4.3, 4.4, 4.5 and 4.6
 
 ## Installation
+
+### Kibana 7.6.2:
+
+```
+bin/kibana-plugin install https://github.com/prelert/kibana-swimlane-vis/releases/download/v7.6.2/prelert_swimlane_vis-7.6.2.zip
+```
 
 ### Kibana 7.6.1:
 
